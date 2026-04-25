@@ -1,7 +1,21 @@
 {
   "name": "cricket-league",
-  "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "A modern React web app for browsing and viewing player profiles in a society cricket league.",
+  "author": "Jishan Ali",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jishanali123/cricket-league.git"
+  },
+  "keywords": [
+    "cricket",
+    "league",
+    "react",
+    "vite",
+    "ant-design",
+    "player-showcase"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",

@@ -1,5 +1,7 @@
 # Society Cricket League — Player Showcase
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+
 A modern, responsive React web app for browsing and viewing player profiles in a society cricket league.
 
 ## Features
