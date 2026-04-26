@@ -6,7 +6,7 @@ import {
   UserOutlined,
   TrophyOutlined,
 } from '@ant-design/icons';
-import { usePlayers, getTeams, getRoles, formatPrice } from '../hooks/usePlayers';
+import { useLeague, formatPrice } from '../context/LeagueContext';
 
 const { Search } = Input;
 
@@ -25,14 +25,14 @@ const TEAM_COLORS = {
 };
 
 export default function PlayerTable() {
-  const { players, loading, error } = usePlayers();
+  const { players, teams } = useLeague();
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
   const [roleFilter, setRoleFilter] = useState(null);
   const [teamFilter, setTeamFilter] = useState(null);
 
-  const teams = getTeams();
-  const roles = getRoles();
+  const teamNames = teams.map((t) => t.name);
+  const roles = [...new Set(players.map((p) => p.role))];
 
   const filteredPlayers = useMemo(() => {
     return players.filter((p) => {
@@ -104,7 +104,12 @@ export default function PlayerTable() {
       key: 'price',
       sorter: (a, b) => a.price - b.price,
       render: (price, record) => (
-        <span style={{ fontWeight: 600, color: record.sold ? '#52c41a' : '#faad14' }}>
+        <span
+          style={{
+            fontWeight: 600,
+            color: record.sold ? '#52c41a' : '#faad14',
+          }}
+        >
           {formatPrice(price)}
         </span>
       ),
@@ -139,14 +144,6 @@ export default function PlayerTable() {
     },
   ];
 
-  if (error) {
-    return (
-      <div style={{ textAlign: 'center', padding: 48, color: '#ff4d4f' }}>
-        Error loading players: {error}
-      </div>
-    );
-  }
-
   return (
     <div>
       <div
@@ -179,7 +176,7 @@ export default function PlayerTable() {
           onChange={(val) => setTeamFilter(val)}
           style={{ flex: '0 1 200px' }}
           size="large"
-          options={teams.map((t) => ({ value: t, label: t }))}
+          options={teamNames.map((t) => ({ value: t, label: t }))}
         />
       </div>
 
@@ -187,8 +184,11 @@ export default function PlayerTable() {
         dataSource={filteredPlayers}
         columns={columns}
         rowKey="id"
-        loading={loading}
-        pagination={{ pageSize: 10, showSizeChanger: false, hideOnSinglePage: true }}
+        pagination={{
+          pageSize: 10,
+          showSizeChanger: false,
+          hideOnSinglePage: true,
+        }}
         onRow={(record) => ({
           onClick: () => navigate(`/players/${record.id}`),
           style: { cursor: 'pointer' },

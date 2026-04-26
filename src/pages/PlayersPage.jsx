@@ -3,7 +3,7 @@ import PlayerTable from '../components/PlayerTable';
 
 const { Title, Text } = Typography;
 
-export default function HomePage() {
+export default function PlayersPage() {
   return (
     <div style={{ maxWidth: 1200, margin: '0 auto', padding: '32px 24px' }}>
       <div style={{ marginBottom: 28 }}>
@@ -11,7 +11,8 @@ export default function HomePage() {
           Player Showcase
         </Title>
         <Text type="secondary" style={{ fontSize: 15 }}>
-          Browse the league roster — click any player to view their full profile
+          Browse the league roster — click any player to view their full
+          profile
         </Text>
       </div>
       <PlayerTable />

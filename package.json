@@ -1,7 +1,7 @@
 {
-  "name": "cricket-league",
-  "version": "1.0.0",
-  "description": "A modern React web app for browsing and viewing player profiles in a society cricket league.",
+  "name": "aethereus-premier-league",
+  "version": "2.0.0",
+  "description": "Aethereus Premier League — Housing society cricket tournament app with player showcase, live auction, team management, and sponsor pages.",
   "author": "Jishan Ali",
   "license": "MIT",
   "repository": {
@@ -11,10 +11,12 @@
   "keywords": [
     "cricket",
     "league",
+    "auction",
     "react",
     "vite",
     "ant-design",
-    "player-showcase"
+    "premier-league",
+    "housing-society"
   ],
   "type": "module",
   "scripts": {

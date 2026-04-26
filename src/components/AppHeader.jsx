@@ -1,61 +1,112 @@
+import { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { Layout, Button, Typography } from 'antd';
-import { ArrowLeftOutlined, HomeOutlined } from '@ant-design/icons';
+import { Layout, Menu, Button, Drawer } from 'antd';
+import {
+  HomeOutlined,
+  TeamOutlined,
+  TrophyOutlined,
+  ThunderboltOutlined,
+  GiftOutlined,
+  MenuOutlined,
+} from '@ant-design/icons';
 
 const { Header } = Layout;
-const { Title } = Typography;
+
+const NAV_ITEMS = [
+  { key: '/', label: 'Home', icon: <HomeOutlined /> },
+  { key: '/players', label: 'Players', icon: <TeamOutlined /> },
+  { key: '/teams', label: 'Teams', icon: <TrophyOutlined /> },
+  { key: '/auction', label: 'Auction', icon: <ThunderboltOutlined />, disabled: true },
+  { key: '/sponsors', label: 'Sponsors', icon: <GiftOutlined /> },
+];
 
 export default function AppHeader() {
   const navigate = useNavigate();
   const location = useLocation();
-  const isHome = location.pathname === '/';
+  const [drawerOpen, setDrawerOpen] = useState(false);
+
+  const activeKey =
+    NAV_ITEMS.find(
+      (item) =>
+        item.key !== '/' && location.pathname.startsWith(item.key),
+    )?.key ?? '/';
+
+  const handleNav = ({ key }) => {
+    navigate(key);
+    setDrawerOpen(false);
+  };
 
   return (
     <Header
       style={{
-        background: 'linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)',
+        background:
+          'linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%)',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'space-between',
         padding: '0 24px',
         position: 'sticky',
         top: 0,
         zIndex: 100,
         boxShadow: '0 2px 8px rgba(0,0,0,0.15)',
+        gap: 24,
       }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        {!isHome && (
-          <Button
-            type="text"
-            icon={<ArrowLeftOutlined />}
-            onClick={() => navigate(-1)}
-            style={{ color: '#fff', fontSize: 16 }}
-          />
-        )}
-        <Title
-          level={4}
-          style={{
-            color: '#fff',
-            margin: 0,
-            cursor: 'pointer',
-            letterSpacing: 0.5,
-          }}
-          onClick={() => navigate('/')}
-        >
-          🏏 Society Cricket League
-        </Title>
+      <div
+        onClick={() => navigate('/')}
+        style={{
+          color: '#fff',
+          fontWeight: 700,
+          fontSize: 'clamp(14px, 2.5vw, 18px)',
+          cursor: 'pointer',
+          whiteSpace: 'nowrap',
+          letterSpacing: 0.5,
+          flexShrink: 0,
+        }}
+      >
+        🏏 APL
       </div>
-      {!isHome && (
-        <Button
-          type="text"
-          icon={<HomeOutlined />}
-          onClick={() => navigate('/')}
-          style={{ color: 'rgba(255,255,255,0.85)' }}
-        >
-          Home
-        </Button>
-      )}
+
+      {/* Desktop nav */}
+      <Menu
+        mode="horizontal"
+        selectedKeys={[activeKey]}
+        onClick={handleNav}
+        items={NAV_ITEMS}
+        style={{
+          flex: 1,
+          background: 'transparent',
+          borderBottom: 'none',
+          minWidth: 0,
+          justifyContent: 'flex-end',
+        }}
+        theme="dark"
+        className="desktop-nav"
+      />
+
+      {/* Mobile hamburger */}
+      <Button
+        type="text"
+        icon={<MenuOutlined />}
+        onClick={() => setDrawerOpen(true)}
+        className="mobile-nav-btn"
+        style={{ color: '#fff', fontSize: 20, display: 'none' }}
+      />
+
+      <Drawer
+        title="Aethereus Premier League"
+        placement="right"
+        onClose={() => setDrawerOpen(false)}
+        open={drawerOpen}
+        width={260}
+      >
+        <Menu
+          mode="vertical"
+          selectedKeys={[activeKey]}
+          onClick={handleNav}
+          items={NAV_ITEMS}
+          style={{ border: 'none' }}
+        />
+      </Drawer>
     </Header>
   );
 }

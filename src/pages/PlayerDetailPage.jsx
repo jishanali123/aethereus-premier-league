@@ -1,3 +1,4 @@
+import { useMemo } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import {
   Card,
@@ -9,9 +10,7 @@ import {
   Col,
   Badge,
   Button,
-  Divider,
   Result,
-  Spin,
   Avatar,
 } from 'antd';
 import {
@@ -22,7 +21,7 @@ import {
   ThunderboltOutlined,
   AimOutlined,
 } from '@ant-design/icons';
-import { usePlayer, formatPrice } from '../hooks/usePlayers';
+import { useLeague, formatPrice } from '../context/LeagueContext';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -43,25 +42,22 @@ const TEAM_COLORS = {
 export default function PlayerDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { player, loading, error } = usePlayer(id);
+  const { players } = useLeague();
 
-  if (loading) {
-    return (
-      <div style={{ textAlign: 'center', padding: 80 }}>
-        <Spin size="large" />
-      </div>
-    );
-  }
+  const player = useMemo(
+    () => players.find((p) => p.id === Number(id)) ?? null,
+    [players, id],
+  );
 
-  if (error || !player) {
+  if (!player) {
     return (
       <div style={{ maxWidth: 600, margin: '48px auto', padding: '0 24px' }}>
         <Result
           status="404"
           title="Player Not Found"
-          subTitle={`No player exists with ID "${id}". They may have been removed from the roster.`}
+          subTitle={`No player exists with ID "${id}".`}
           extra={
-            <Button type="primary" onClick={() => navigate('/')}>
+            <Button type="primary" onClick={() => navigate('/players')}>
               Back to Roster
             </Button>
           }
@@ -75,8 +71,8 @@ export default function PlayerDetailPage() {
       <Button
         type="text"
         icon={<ArrowLeftOutlined />}
-        onClick={() => navigate('/')}
-        style={{ marginBottom: 16, padding: '4px 0' }}
+        onClick={() => navigate('/players')}
+        style={{ padding: '4px 0', marginBottom: 16 }}
       >
         Back to Roster
       </Button>
@@ -109,7 +105,14 @@ export default function PlayerDetailPage() {
               />
             </Col>
             <Col xs={24} sm={16} md={18}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+              <div
+                style={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 12,
+                  flexWrap: 'wrap',
+                }}
+              >
                 <Title level={2} style={{ margin: 0 }}>
                   {player.name}
                 </Title>
@@ -122,24 +125,45 @@ export default function PlayerDetailPage() {
                   }
                 />
               </div>
-              <div style={{ marginTop: 12, display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+              <div
+                style={{
+                  marginTop: 12,
+                  display: 'flex',
+                  gap: 8,
+                  flexWrap: 'wrap',
+                }}
+              >
                 <Tag
                   color={ROLE_COLORS[player.role]}
-                  style={{ fontSize: 14, padding: '2px 12px', borderRadius: 12 }}
+                  style={{
+                    fontSize: 14,
+                    padding: '2px 12px',
+                    borderRadius: 12,
+                  }}
                 >
                   {player.role}
                 </Tag>
                 {player.team && (
                   <Tag
                     color={TEAM_COLORS[player.team]}
-                    style={{ fontSize: 14, padding: '2px 12px', borderRadius: 12, fontWeight: 500 }}
+                    style={{
+                      fontSize: 14,
+                      padding: '2px 12px',
+                      borderRadius: 12,
+                      fontWeight: 500,
+                    }}
                   >
                     {player.team}
                   </Tag>
                 )}
               </div>
               <Paragraph
-                style={{ marginTop: 16, marginBottom: 0, fontSize: 15, color: '#595959' }}
+                style={{
+                  marginTop: 16,
+                  marginBottom: 0,
+                  fontSize: 15,
+                  color: '#595959',
+                }}
               >
                 {player.description}
               </Paragraph>
@@ -215,22 +239,37 @@ export default function PlayerDetailPage() {
         style={{ borderRadius: 16 }}
         styles={{ header: { borderBottom: '1px solid #f0f0f0' } }}
       >
-        <Descriptions column={{ xs: 1, sm: 2 }} layout="vertical" colon={false}>
+        <Descriptions
+          column={{ xs: 1, sm: 2 }}
+          layout="vertical"
+          colon={false}
+        >
           <Descriptions.Item label="Sold Price">
-            <Text strong style={{ fontSize: 18, color: player.sold ? '#52c41a' : '#faad14' }}>
+            <Text
+              strong
+              style={{
+                fontSize: 18,
+                color: player.sold ? '#52c41a' : '#faad14',
+              }}
+            >
               <DollarOutlined style={{ marginRight: 4 }} />
               {formatPrice(player.price)}
             </Text>
           </Descriptions.Item>
           <Descriptions.Item label="Base Price">
-            <Text style={{ fontSize: 16 }}>{formatPrice(player.basePrice)}</Text>
+            <Text style={{ fontSize: 16 }}>
+              {formatPrice(player.basePrice)}
+            </Text>
           </Descriptions.Item>
           <Descriptions.Item label="Role">
             <Tag color={ROLE_COLORS[player.role]}>{player.role}</Tag>
           </Descriptions.Item>
           <Descriptions.Item label="Team">
             {player.team ? (
-              <Tag color={TEAM_COLORS[player.team]} style={{ fontWeight: 500 }}>
+              <Tag
+                color={TEAM_COLORS[player.team]}
+                style={{ fontWeight: 500 }}
+              >
                 {player.team}
               </Tag>
             ) : (

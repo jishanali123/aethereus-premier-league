@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
 
 *,
 *::before,
@@ -36,7 +36,32 @@ body {
 /* Search input focus */
 .ant-input-affix-wrapper:focus,
 .ant-input-affix-wrapper-focused {
-  box-shadow: 0 0 0 2px rgba(26, 26, 46, 0.1) !important;
+  box-shadow: 0 0 0 2px rgba(48, 43, 99, 0.1) !important;
+}
+
+/* Header nav menu — override dark theme defaults */
+.ant-layout-header .ant-menu-horizontal {
+  line-height: 64px;
+}
+
+.ant-layout-header .ant-menu-horizontal > .ant-menu-item {
+  border-radius: 6px;
+}
+
+/* Responsive navigation */
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none !important;
+  }
+  .mobile-nav-btn {
+    display: inline-flex !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .mobile-nav-btn {
+    display: none !important;
+  }
 }
 
 /* Responsive tweaks */

@@ -1,0 +1,50 @@
+[
+  {
+    "id": 1,
+    "name": "Hotel Durga",
+    "tier": "title",
+    "description": "Title Sponsor — Hospitality at its finest",
+    "logo": null,
+    "website": "#"
+  },
+  {
+    "id": 2,
+    "name": "Aethereus Developer",
+    "tier": "gold",
+    "description": "Building the community together",
+    "logo": null,
+    "website": "#"
+  },
+  {
+    "id": 3,
+    "name": "Bird Valley",
+    "tier": "gold",
+    "description": "Stay fit, play better",
+    "logo": null,
+    "website": "#"
+  },
+  {
+    "id": 4,
+    "name": "QuickBite Cafe",
+    "tier": "silver",
+    "description": "Food & refreshments partner",
+    "logo": null,
+    "website": "#"
+  },
+  {
+    "id": 5,
+    "name": "TechHub Solutions",
+    "tier": "silver",
+    "description": "Technology partner",
+    "logo": null,
+    "website": "#"
+  },
+  {
+    "id": 6,
+    "name": "Metro Pharmacy",
+    "tier": "silver",
+    "description": "Healthcare partner",
+    "logo": null,
+    "website": "#"
+  }
+]
