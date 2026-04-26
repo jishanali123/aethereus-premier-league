@@ -1,6 +1,6 @@
 # Aethereus Premier League — Project Documentation
 
-> Housing society cricket tournament web app with player showcase, live auction, team management, and sponsor pages.
+> Aethereus society cricket tournament web app with player showcase, live auction, team management, and sponsor pages.
 >
 > **Last updated:** April 26, 2026
 
