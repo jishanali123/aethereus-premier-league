@@ -1,12 +1,12 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Table, Input, Select, Tag, Avatar, Space, Badge } from 'antd';
+import { Table, Input, Select, Tag, Avatar, Space, Badge, Rate } from 'antd';
 import {
   SearchOutlined,
   UserOutlined,
   TrophyOutlined,
 } from '@ant-design/icons';
-import { useLeague, formatPrice } from '../context/LeagueContext';
+import { useLeague } from '../context/LeagueContext';
 
 const { Search } = Input;
 
@@ -17,21 +17,12 @@ const ROLE_COLORS = {
   'Wicket-Keeper': 'green',
 };
 
-const TEAM_COLORS = {
-  'Royal Strikers': '#1677ff',
-  'Thunder Kings': '#faad14',
-  'Blaze Warriors': '#ff4d4f',
-  'Supreme Challengers': '#722ed1',
-};
-
 export default function PlayerTable() {
-  const { players, teams } = useLeague();
+  const { players } = useLeague();
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
   const [roleFilter, setRoleFilter] = useState(null);
-  const [teamFilter, setTeamFilter] = useState(null);
 
-  const teamNames = teams.map((t) => t.name);
   const roles = [...new Set(players.map((p) => p.role))];
 
   const filteredPlayers = useMemo(() => {
@@ -39,13 +30,11 @@ export default function PlayerTable() {
       const matchesSearch =
         !searchText ||
         p.name.toLowerCase().includes(searchText.toLowerCase()) ||
-        (p.team ?? '').toLowerCase().includes(searchText.toLowerCase()) ||
         p.role.toLowerCase().includes(searchText.toLowerCase());
       const matchesRole = !roleFilter || p.role === roleFilter;
-      const matchesTeam = !teamFilter || p.team === teamFilter;
-      return matchesSearch && matchesRole && matchesTeam;
+      return matchesSearch && matchesRole;
     });
-  }, [players, searchText, roleFilter, teamFilter]);
+  }, [players, searchText, roleFilter]);
 
   const columns = [
     {
@@ -61,12 +50,7 @@ export default function PlayerTable() {
             size={40}
             style={{ flexShrink: 0 }}
           />
-          <div>
-            <div style={{ fontWeight: 600, fontSize: 14 }}>{name}</div>
-            <div style={{ fontSize: 12, color: '#8c8c8c' }}>
-              {record.matches} matches
-            </div>
-          </div>
+          <div style={{ fontWeight: 600, fontSize: 14 }}>{name}</div>
         </Space>
       ),
     },
@@ -81,54 +65,24 @@ export default function PlayerTable() {
       responsive: ['sm'],
     },
     {
-      title: 'Team',
-      dataIndex: 'team',
-      key: 'team',
-      sorter: (a, b) => (a.team ?? '').localeCompare(b.team ?? ''),
-      render: (team) =>
-        team ? (
-          <Tag
-            color={TEAM_COLORS[team]}
-            style={{ borderRadius: 12, fontWeight: 500 }}
-          >
-            {team}
-          </Tag>
-        ) : (
-          <Tag style={{ borderRadius: 12 }}>Unassigned</Tag>
-        ),
+      title: 'Batting',
+      dataIndex: 'battingRating',
+      key: 'battingRating',
+      sorter: (a, b) => (a.battingRating ?? 0) - (b.battingRating ?? 0),
+      render: (val) => (
+        <Rate disabled value={val ?? 0} count={5} style={{ fontSize: 14 }} />
+      ),
       responsive: ['md'],
     },
     {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
-      sorter: (a, b) => a.price - b.price,
-      render: (price, record) => (
-        <span
-          style={{
-            fontWeight: 600,
-            color: record.sold ? '#52c41a' : '#faad14',
-          }}
-        >
-          {formatPrice(price)}
-        </span>
+      title: 'Bowling',
+      dataIndex: 'bowlingRating',
+      key: 'bowlingRating',
+      sorter: (a, b) => (a.bowlingRating ?? 0) - (b.bowlingRating ?? 0),
+      render: (val) => (
+        <Rate disabled value={val ?? 0} count={5} style={{ fontSize: 14 }} />
       ),
-    },
-    {
-      title: 'Runs',
-      dataIndex: 'runs',
-      key: 'runs',
-      sorter: (a, b) => a.runs - b.runs,
-      align: 'right',
-      responsive: ['lg'],
-    },
-    {
-      title: 'Wickets',
-      dataIndex: 'wickets',
-      key: 'wickets',
-      sorter: (a, b) => a.wickets - b.wickets,
-      align: 'right',
-      responsive: ['lg'],
+      responsive: ['md'],
     },
     {
       title: 'Status',
@@ -169,14 +123,6 @@ export default function PlayerTable() {
           style={{ flex: '0 1 180px' }}
           size="large"
           options={roles.map((r) => ({ value: r, label: r }))}
-        />
-        <Select
-          placeholder="All Teams"
-          allowClear
-          onChange={(val) => setTeamFilter(val)}
-          style={{ flex: '0 1 200px' }}
-          size="large"
-          options={teamNames.map((t) => ({ value: t, label: t }))}
         />
       </div>
 
