@@ -9,7 +9,7 @@
   },
   {
     "id": 2,
-    "name": "Premium Decor",
+    "name": "Township homes",
     "tier": "gold",
     "description": "Elevating spaces with style",
     "logo": null,
@@ -17,33 +17,33 @@
   },
   {
     "id": 3,
-    "name": "Bird Valley",
+    "name": "Coming Soon",
     "tier": "gold",
-    "description": "Stay fit, play better",
+    "description": "Sponsor slot available",
     "logo": null,
     "website": "#"
   },
   {
     "id": 4,
-    "name": "QuickBite Cafe",
+    "name": "Coming Soon",
     "tier": "silver",
-    "description": "Food & refreshments partner",
+    "description": "Sponsor slot available",
     "logo": null,
     "website": "#"
   },
   {
     "id": 5,
-    "name": "TechHub Solutions",
+    "name": "Coming Soon",
     "tier": "silver",
-    "description": "Technology partner",
+    "description": "Sponsor slot available",
     "logo": null,
     "website": "#"
   },
   {
     "id": 6,
-    "name": "Metro Pharmacy",
+    "name": "Coming Soon",
     "tier": "silver",
-    "description": "Healthcare partner",
+    "description": "Sponsor slot available",
     "logo": null,
     "website": "#"
   }
