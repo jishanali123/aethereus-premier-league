@@ -67,6 +67,7 @@ export default function LandingPage() {
               size="large"
               icon={<PlayCircleOutlined />}
               disabled
+              className="coming-soon-btn"
               style={{
                 height: 44,
                 paddingInline: 28,
