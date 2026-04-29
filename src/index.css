@@ -80,6 +80,13 @@ body {
   }
 }
 
+/* Mobile: show compact player info under name */
+@media (max-width: 767px) {
+  .mobile-player-sub {
+    display: block !important;
+  }
+}
+
 /* Responsive tweaks */
 @media (max-width: 576px) {
   .ant-table-thead > tr > th {

@@ -43,15 +43,28 @@ export default function PlayerTable() {
       key: 'name',
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: (name, record) => (
-        <Space>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <Avatar
             src={record.photo}
             icon={<UserOutlined />}
             size={40}
             style={{ flexShrink: 0 }}
           />
-          <div style={{ fontWeight: 600, fontSize: 14 }}>{name}</div>
-        </Space>
+          <div>
+            <div style={{ fontWeight: 600, fontSize: 14 }}>{name}</div>
+            <div className="mobile-player-sub" style={{ display: 'none', marginTop: 2, fontSize: 12, color: '#8c8c8c' }}>
+              <Tag
+                color={ROLE_COLORS[record.role] || 'default'}
+                style={{ fontSize: 11, padding: '0 6px', borderRadius: 8, marginRight: 6 }}
+              >
+                {record.role}
+              </Tag>
+              {'⭐'.repeat(record.battingRating ?? 0)} Bat
+              {' · '}
+              {'⭐'.repeat(record.bowlingRating ?? 0)} Bowl
+            </div>
+          </div>
+        </div>
       ),
     },
     {
