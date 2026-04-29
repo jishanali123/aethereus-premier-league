@@ -16,7 +16,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 2,
@@ -35,7 +36,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 3,
@@ -54,7 +56,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 1,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 4,
@@ -73,7 +76,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 1
+    "bowlingRating": 1,
+    "cricheroesUrl": null
   },
   {
     "id": 5,
@@ -92,7 +96,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 6,
@@ -111,7 +116,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 7,
@@ -130,7 +136,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 4,
-    "bowlingRating": 1
+    "bowlingRating": 1,
+    "cricheroesUrl": null
   },
   {
     "id": 8,
@@ -149,7 +156,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 9,
@@ -168,11 +176,13 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 1,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 10,
     "name": "Jishan Ali",
+    "cricheroesUrl": "https://cricheroes.com/player-profile/2126734/jishan/matches",
     "price": 0,
     "basePrice": 500,
     "role": "All-Rounder",
@@ -206,7 +216,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 12,
@@ -225,7 +236,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 1,
-    "bowlingRating": 4
+    "bowlingRating": 4,
+    "cricheroesUrl": null
   },
   {
     "id": 13,
@@ -244,7 +256,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 1
+    "bowlingRating": 1,
+    "cricheroesUrl": null
   },
   {
     "id": 14,
@@ -263,7 +276,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 15,
@@ -282,7 +296,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 1,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 16,
@@ -301,7 +316,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 4,
-    "bowlingRating": 1
+    "bowlingRating": 1,
+    "cricheroesUrl": null
   },
   {
     "id": 17,
@@ -320,7 +336,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 18,
@@ -339,7 +356,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 1,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 19,
@@ -358,7 +376,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 1
+    "bowlingRating": 1,
+    "cricheroesUrl": null
   },
   {
     "id": 20,
@@ -377,7 +396,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 21,
@@ -396,7 +416,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 1,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 22,
@@ -415,7 +436,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 1
+    "bowlingRating": 1,
+    "cricheroesUrl": null
   },
   {
     "id": 23,
@@ -434,7 +456,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 24,
@@ -453,7 +476,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 25,
@@ -472,7 +496,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 4,
-    "bowlingRating": 1
+    "bowlingRating": 1,
+    "cricheroesUrl": null
   },
   {
     "id": 26,
@@ -491,7 +516,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 27,
@@ -510,7 +536,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 28,
@@ -529,7 +556,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 29,
@@ -548,7 +576,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 30,
@@ -567,7 +596,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 31,
@@ -586,7 +616,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 1
+    "bowlingRating": 1,
+    "cricheroesUrl": null
   },
   {
     "id": 32,
@@ -605,7 +636,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 33,
@@ -624,7 +656,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 1,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 34,
@@ -643,7 +676,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 4,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 35,
@@ -662,7 +696,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 36,
@@ -681,7 +716,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 1,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 37,
@@ -700,7 +736,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 38,
@@ -719,7 +756,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 39,
@@ -738,7 +776,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 40,
@@ -757,7 +796,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 41,
@@ -776,7 +816,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 42,
@@ -795,7 +836,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 1,
-    "bowlingRating": 4
+    "bowlingRating": 4,
+    "cricheroesUrl": null
   },
   {
     "id": 43,
@@ -814,7 +856,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 4,
-    "bowlingRating": 1
+    "bowlingRating": 1,
+    "cricheroesUrl": null
   },
   {
     "id": 44,
@@ -833,7 +876,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 45,
@@ -852,7 +896,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 46,
@@ -871,7 +916,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 1
+    "bowlingRating": 1,
+    "cricheroesUrl": null
   },
   {
     "id": 47,
@@ -890,7 +936,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 48,
@@ -909,7 +956,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 1,
-    "bowlingRating": 4
+    "bowlingRating": 4,
+    "cricheroesUrl": null
   },
   {
     "id": 49,
@@ -928,7 +976,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 1
+    "bowlingRating": 1,
+    "cricheroesUrl": null
   },
   {
     "id": 50,
@@ -947,7 +996,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 51,
@@ -966,7 +1016,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 52,
@@ -985,7 +1036,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 53,
@@ -1004,7 +1056,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 54,
@@ -1023,7 +1076,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 4
+    "bowlingRating": 4,
+    "cricheroesUrl": null
   },
   {
     "id": 55,
@@ -1042,7 +1096,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 1
+    "bowlingRating": 1,
+    "cricheroesUrl": null
   },
   {
     "id": 56,
@@ -1061,7 +1116,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 57,
@@ -1080,7 +1136,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 58,
@@ -1099,7 +1156,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 4,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 59,
@@ -1118,7 +1176,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 60,
@@ -1137,7 +1196,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 1,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 61,
@@ -1156,7 +1216,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 4,
-    "bowlingRating": 1
+    "bowlingRating": 1,
+    "cricheroesUrl": null
   },
   {
     "id": 62,
@@ -1175,7 +1236,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 63,
@@ -1194,7 +1256,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 1,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 64,
@@ -1213,7 +1276,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 4,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 65,
@@ -1232,7 +1296,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 66,
@@ -1251,7 +1316,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 1,
-    "bowlingRating": 4
+    "bowlingRating": 4,
+    "cricheroesUrl": null
   },
   {
     "id": 67,
@@ -1270,7 +1336,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 68,
@@ -1289,7 +1356,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 69,
@@ -1308,7 +1376,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 70,
@@ -1327,7 +1396,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 71,
@@ -1346,7 +1416,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 2
+    "bowlingRating": 2,
+    "cricheroesUrl": null
   },
   {
     "id": 72,
@@ -1365,7 +1436,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 1,
-    "bowlingRating": 4
+    "bowlingRating": 4,
+    "cricheroesUrl": null
   },
   {
     "id": 73,
@@ -1384,7 +1456,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 3,
-    "bowlingRating": 1
+    "bowlingRating": 1,
+    "cricheroesUrl": null
   },
   {
     "id": 74,
@@ -1403,7 +1476,8 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   },
   {
     "id": 75,
@@ -1422,6 +1496,7 @@
     "strikeRate": 0,
     "sold": false,
     "battingRating": 2,
-    "bowlingRating": 3
+    "bowlingRating": 3,
+    "cricheroesUrl": null
   }
 ]

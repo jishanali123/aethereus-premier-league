@@ -17,7 +17,7 @@ import {
   ArrowLeftOutlined,
   UserOutlined,
   DollarOutlined,
-  TrophyOutlined,
+  LinkOutlined,
 } from '@ant-design/icons';
 import { useLeague, formatPrice } from '../context/LeagueContext';
 
@@ -152,6 +152,24 @@ export default function PlayerDetailPage() {
               </Text>
             </Col>
           </Row>
+          {player.cricheroesUrl && (
+            <>
+              <Divider style={{ margin: '16px 0' }} />
+              <Button
+                type="primary"
+                icon={<LinkOutlined />}
+                onClick={() => window.open(player.cricheroesUrl, '_blank')}
+                style={{
+                  borderRadius: 20,
+                  background: 'linear-gradient(135deg, #ff6b35, #f7c948)',
+                  border: 'none',
+                  fontWeight: 600,
+                }}
+              >
+                View CricHeroes Profile
+              </Button>
+            </>
+          )}
         </div>
       </Card>
 

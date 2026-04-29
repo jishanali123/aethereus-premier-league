@@ -119,6 +119,7 @@ Each player object has these fields:
 | `description` | string | Player bio (currently empty for all) |
 | `battingRating` | number | Batting skill rating (0–5 stars) |
 | `bowlingRating` | number | Bowling skill rating (0–5 stars) |
+| `cricheroesUrl` | string \| null | Link to player's CricHeroes profile (shows button when set) |
 | `matches` | number | Matches played |
 | `runs` | number | Total runs scored |
 | `wickets` | number | Total wickets taken |

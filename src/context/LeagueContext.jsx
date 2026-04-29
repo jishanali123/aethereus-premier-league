@@ -4,7 +4,7 @@ import initialTeams from '../data/teams.json';
 import initialSponsors from '../data/sponsors.json';
 
 const STORAGE_KEY = 'apl-league-data';
-const DATA_VERSION = 10;
+const DATA_VERSION = 13;
 
 const LeagueContext = createContext(null);
 
