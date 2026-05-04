@@ -1,50 +1,42 @@
 [
   {
     "id": 1,
-    "name": "Hotel Durga",
+    "name": "Global Hardware",
     "tier": "title",
-    "description": "Title Sponsor — Hospitality at its finest",
-    "logo": null,
-    "website": "#"
+    "description": "Title Sponsor — Powering the league with strength and precision",
+    "logo": "/images/sponsors/global-hardware.png",
+    "website": "https://www.google.com/search?client=safari&hs=3Fpp&sa=X&sca_esv=8663b7cb61c76c33&channel=iphone_bm&biw=414&bih=750&sxsrf=ANbL-n4YDz9_UsACZaC_bbZkiBK41AUxeg:1777871207842&kgmid=/g/11r108vqmz&q=Global+Hardware+Solution&shem=epsd1,rimspwouoe&shndl=30&source=sh/x/loc/act/m1/3&kgs=f664aea670912da4&utm_source=epsd1,rimspwouoe,sh/x/loc/act/m1/3"
   },
   {
     "id": 2,
-    "name": "Township homes",
-    "tier": "gold",
-    "description": "Elevating spaces with style",
-    "logo": null,
-    "website": "#"
+    "name": "Salunkhe's Multicare Clinic",
+    "tier": "co-title",
+    "description": "Co-Title Sponsor — Caring for the community, on and off the field",
+    "logo": "/images/sponsors/salunkhe-clinic.png",
+    "website": "https://salunkhesmulticare.co.in/"
   },
   {
     "id": 3,
-    "name": "Coming Soon",
-    "tier": "gold",
-    "description": "Sponsor slot available",
-    "logo": null,
-    "website": "#"
+    "name": "Hotel Durga",
+    "tier": "team-sponsor",
+    "description": "Team Sponsor — Hospitality at its finest",
+    "logo": "/images/sponsors/hotel-durga.png",
+    "website": "https://www.google.com/search?client=safari&hs=4Fpp&channel=iphone_bm&sca_esv=8663b7cb61c76c33&cs=0&output=search&kgmid=/g/11xymmv9xm&q=Hotel+Durga+Mahalunge&shem=epsd1,rimspwouoe&shndl=30&source=sh/x/loc/act/m1/3&kgs=71cb6797a691390a&utm_source=epsd1,rimspwouoe,sh/x/loc/act/m1/3"
   },
   {
     "id": 4,
-    "name": "Coming Soon",
-    "tier": "silver",
-    "description": "Sponsor slot available",
-    "logo": null,
-    "website": "#"
+    "name": "Township Homes",
+    "tier": "team-sponsor",
+    "description": "Team Sponsor — Elevating spaces with style",
+    "logo": "/images/sponsors/township-homes.png",
+    "website": "https://townshiphomes.in/"
   },
   {
     "id": 5,
-    "name": "Coming Soon",
-    "tier": "silver",
-    "description": "Sponsor slot available",
-    "logo": null,
-    "website": "#"
-  },
-  {
-    "id": 6,
-    "name": "Coming Soon",
-    "tier": "silver",
-    "description": "Sponsor slot available",
-    "logo": null,
-    "website": "#"
+    "name": "S.P Stationers",
+    "tier": "team-sponsor",
+    "description": "Team Sponsor — Your one-stop stationery destination",
+    "logo": "/images/sponsors/sp-stationers.png",
+    "website": "https://www.google.com/search?client=safari&hs=Bv9U&sca_esv=8663b7cb61c76c33&channel=iphone_bm&biw=414&bih=750&sxsrf=ANbL-n6LzjoNfyoe0Up3-Rhe_CrCor0G-A:1777870352255&kgmid=/g/11b807y9_f&q=S+P+Stationers+Super+Store&shem=epsd1,rimspwouoe&shndl=30&source=sh/x/loc/act/m1/3&kgs=3beafee9f2c51354&utm_source=epsd1,rimspwouoe,sh/x/loc/act/m1/3"
   }
 ]

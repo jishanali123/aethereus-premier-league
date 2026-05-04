@@ -6,6 +6,8 @@ import {
   ThunderboltOutlined,
   GiftOutlined,
   PlayCircleOutlined,
+  CrownOutlined,
+  StarOutlined,
 } from '@ant-design/icons';
 import { useLeague } from '../context/LeagueContext';
 
@@ -214,71 +216,173 @@ export default function LandingPage() {
           />
         </div>
 
-        {/* Sponsors Preview */}
-        {sponsors.length > 0 && (
-          <>
-            <Title level={3} style={{ marginTop: 32, marginBottom: 16 }}>
-              <GiftOutlined style={{ marginRight: 8, color: '#722ed1' }} />
-              Our Sponsors
-            </Title>
-            <Row gutter={[16, 16]}>
-              {sponsors
-                .filter((s) => s.tier === 'title' || s.tier === 'gold')
-                .map((s) => (
-                  <Col xs={12} sm={8} key={s.id}>
-                    <Card
-                      hoverable
-                      onClick={() => navigate('/sponsors')}
+        {/* Sponsors Preview — tiered hierarchy */}
+        {sponsors.length > 0 && (() => {
+          const titleSponsor = sponsors.find((s) => s.tier === 'title');
+          const coTitleSponsor = sponsors.find((s) => s.tier === 'co-title');
+          const teamSponsors = sponsors.filter((s) => s.tier === 'team-sponsor');
+
+          const TIER_STYLES = {
+            title: {
+              bg: 'linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 60%, #3d1f6d 100%)',
+              border: 'none',
+              shadow: '0 8px 32px rgba(29,0,66,0.3)',
+              nameColor: '#fff',
+              labelColor: 'rgba(255,255,255,0.7)',
+              badgeBg: 'linear-gradient(90deg, #b88aed, #f0c27f)',
+              badgeColor: '#1a0a2e',
+              logoFilter: 'brightness(0) invert(1)',
+              logoBg: 'rgba(255,255,255,0.12)',
+            },
+            'co-title': {
+              bg: 'linear-gradient(135deg, #2a1f0a 0%, #3d2e10 60%, #5a4520 100%)',
+              border: 'none',
+              shadow: '0 6px 28px rgba(50,35,0,0.25)',
+              nameColor: '#ffd666',
+              labelColor: 'rgba(255,215,102,0.7)',
+              badgeBg: 'linear-gradient(90deg, #ffd666, #faad14)',
+              badgeColor: '#2a1f0a',
+              logoFilter: 'none',
+              logoBg: 'rgba(255,255,255,0.9)',
+            },
+            default: {
+              bg: '#fff',
+              border: 'none',
+              shadow: '0 2px 16px rgba(0,0,0,0.08)',
+              nameColor: '#08979c',
+              labelColor: '#8c8c8c',
+              badgeBg: '#08979c',
+              badgeColor: '#fff',
+              logoFilter: 'none',
+              logoBg: 'transparent',
+            },
+          };
+
+          const SponsorCard = ({ sponsor, tierLabel, large }) => {
+            const hasLink = sponsor.website && sponsor.website !== '#';
+            const ts = TIER_STYLES[sponsor.tier] || TIER_STYLES.default;
+            const isDark = sponsor.tier === 'title' || sponsor.tier === 'co-title';
+            return (
+              <Card
+                hoverable
+                onClick={() =>
+                  hasLink
+                    ? window.open(sponsor.website, '_blank', 'noopener,noreferrer')
+                    : navigate('/sponsors')
+                }
+                style={{
+                  borderRadius: 16,
+                  textAlign: 'center',
+                  border: ts.border,
+                  background: ts.bg,
+                  boxShadow: ts.shadow,
+                  height: '100%',
+                  overflow: 'hidden',
+                }}
+                styles={{ body: { padding: large ? '32px 24px' : '20px 16px' } }}
+              >
+                {sponsor.logo && (
+                  <div
+                    style={{
+                      background: isDark ? ts.logoBg : 'transparent',
+                      borderRadius: 12,
+                      padding: isDark ? 12 : 0,
+                      display: 'inline-block',
+                      marginBottom: 12,
+                    }}
+                  >
+                    <img
+                      src={sponsor.logo}
+                      alt={sponsor.name}
                       style={{
-                        borderRadius: 16,
-                        textAlign: 'center',
-                        border: 'none',
-                        boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+                        maxWidth: '100%',
+                        maxHeight: large ? 100 : 64,
+                        objectFit: 'contain',
+                        display: 'block',
                       }}
-                    >
-                      {s.logo ? (
-                        <img
-                          src={s.logo}
-                          alt={s.name}
-                          style={{
-                            maxHeight: 60,
-                            maxWidth: '80%',
-                            objectFit: 'contain',
-                            marginBottom: 8,
-                          }}
-                        />
-                      ) : null}
-                      <Text
-                        strong
-                        style={{
-                          fontSize: s.tier === 'title' ? 16 : 14,
-                          color: s.tier === 'title' ? '#722ed1' : undefined,
-                          display: 'block',
-                        }}
-                      >
-                        {s.name}
-                      </Text>
-                      <Text
-                        type="secondary"
-                        style={{
-                          fontSize: 12,
-                          textTransform: 'uppercase',
-                          letterSpacing: 1,
-                        }}
-                      >
-                        {s.tier} sponsor
-                      </Text>
-                    </Card>
-                  </Col>
-                ))}
-            </Row>
-            <div style={{ textAlign: 'center', marginTop: 16 }}>
-              <Button type="link" onClick={() => navigate('/sponsors')}>
-                View all sponsors →
-              </Button>
-            </div>
-          </>
-        )}
+                    />
+                  </div>
+                )}
+                <div
+                  style={{
+                    fontSize: large ? 20 : 14,
+                    fontWeight: large ? 800 : 600,
+                    color: ts.nameColor,
+                    marginBottom: 6,
+                  }}
+                >
+                  {sponsor.name}
+                </div>
+                <span
+                  style={{
+                    display: 'inline-block',
+                    background: ts.badgeBg,
+                    color: ts.badgeColor,
+                    fontSize: 10,
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: 1,
+                    padding: '3px 12px',
+                    borderRadius: 20,
+                  }}
+                >
+                  {tierLabel}
+                </span>
+              </Card>
+            );
+          };
+
+          return (
+            <>
+              <Title level={3} style={{ marginTop: 32, marginBottom: 16 }}>
+                <GiftOutlined style={{ marginRight: 8, color: '#722ed1' }} />
+                Our Sponsors
+              </Title>
+
+              {/* Title Sponsor — full width, dark premium */}
+              {titleSponsor && (
+                <div style={{ marginBottom: 16 }}>
+                  <SponsorCard
+                    sponsor={titleSponsor}
+                    tierLabel="Title Sponsor"
+                    large
+                  />
+                </div>
+              )}
+
+              {/* Co-Title Sponsor — full width, dark gold */}
+              {coTitleSponsor && (
+                <div style={{ marginBottom: 16 }}>
+                  <SponsorCard
+                    sponsor={coTitleSponsor}
+                    tierLabel="Co-Title Sponsor"
+                    large
+                  />
+                </div>
+              )}
+
+              {/* Team Sponsors row — clean white */}
+              {teamSponsors.length > 0 && (
+                <Row gutter={[12, 12]}>
+                  {teamSponsors.map((s) => (
+                    <Col xs={8} sm={8} key={s.id}>
+                      <SponsorCard
+                        sponsor={s}
+                        tierLabel="Team Sponsor"
+                      />
+                    </Col>
+                  ))}
+                </Row>
+              )}
+
+              <div style={{ textAlign: 'center', marginTop: 16 }}>
+                <Button type="link" onClick={() => navigate('/sponsors')}>
+                  View all sponsors →
+                </Button>
+              </div>
+            </>
+          );
+        })()}
       </div>
     </div>
   );

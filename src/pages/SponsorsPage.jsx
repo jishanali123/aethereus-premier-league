@@ -3,8 +3,6 @@ import {
   Card,
   Row,
   Col,
-  Tag,
-  Button,
   Empty,
 } from 'antd';
 import {
@@ -12,6 +10,7 @@ import {
   GlobalOutlined,
   CrownOutlined,
   StarOutlined,
+  TeamOutlined,
 } from '@ant-design/icons';
 import { useLeague } from '../context/LeagueContext';
 
@@ -19,127 +18,144 @@ const { Title, Text, Paragraph } = Typography;
 
 const TIER_CONFIG = {
   title: {
-    color: '#722ed1',
     icon: <CrownOutlined />,
     label: 'Title Sponsor',
-    bg: 'linear-gradient(135deg, #f5f0ff 0%, #efdbff 100%)',
-    border: '#d3adf7',
+    bg: 'linear-gradient(135deg, #1a0a2e 0%, #2d1b4e 60%, #3d1f6d 100%)',
+    shadow: '0 8px 32px rgba(29,0,66,0.3)',
+    nameColor: '#fff',
+    descColor: 'rgba(255,255,255,0.6)',
+    badgeBg: 'linear-gradient(90deg, #b88aed, #f0c27f)',
+    badgeColor: '#1a0a2e',
+    linkColor: 'rgba(255,255,255,0.7)',
+    logoBg: 'rgba(255,255,255,0.12)',
+    sectionColor: '#722ed1',
   },
-  gold: {
-    color: '#faad14',
+  'co-title': {
     icon: <StarOutlined />,
-    label: 'Gold Sponsor',
-    bg: 'linear-gradient(135deg, #fffbe6 0%, #fff1b8 100%)',
-    border: '#ffe58f',
+    label: 'Co-Title Sponsor',
+    bg: 'linear-gradient(135deg, #2a1f0a 0%, #3d2e10 60%, #5a4520 100%)',
+    shadow: '0 6px 28px rgba(50,35,0,0.25)',
+    nameColor: '#ffd666',
+    descColor: 'rgba(255,215,102,0.6)',
+    badgeBg: 'linear-gradient(90deg, #ffd666, #faad14)',
+    badgeColor: '#2a1f0a',
+    linkColor: 'rgba(255,215,102,0.7)',
+    logoBg: 'rgba(255,255,255,0.9)',
+    sectionColor: '#d48806',
   },
-  silver: {
-    color: '#8c8c8c',
-    icon: <GiftOutlined />,
-    label: 'Silver Sponsor',
-    bg: 'linear-gradient(135deg, #fafafa 0%, #f0f0f0 100%)',
-    border: '#d9d9d9',
+  'team-sponsor': {
+    icon: <TeamOutlined />,
+    label: 'Team Sponsor',
+    bg: '#fff',
+    shadow: '0 2px 16px rgba(0,0,0,0.08)',
+    nameColor: '#08979c',
+    descColor: '#8c8c8c',
+    badgeBg: '#08979c',
+    badgeColor: '#fff',
+    linkColor: '#08979c',
+    logoBg: 'transparent',
+    sectionColor: '#08979c',
   },
 };
+
+function openLink(url) {
+  if (url && url !== '#') {
+    window.open(url, '_blank', 'noopener,noreferrer');
+  }
+}
 
 export default function SponsorsPage() {
   const { sponsors } = useLeague();
 
   const grouped = {
     title: sponsors.filter((s) => s.tier === 'title'),
-    gold: sponsors.filter((s) => s.tier === 'gold'),
-    silver: sponsors.filter((s) => s.tier === 'silver'),
+    'co-title': sponsors.filter((s) => s.tier === 'co-title'),
+    'team-sponsor': sponsors.filter((s) => s.tier === 'team-sponsor'),
   };
 
-  const renderSponsorCard = (sponsor) => {
-    const tier = TIER_CONFIG[sponsor.tier] || TIER_CONFIG.silver;
+  const renderSponsorCard = (sponsor, size = 'default') => {
+    const tier = TIER_CONFIG[sponsor.tier] || TIER_CONFIG['team-sponsor'];
+    const isLarge = size === 'large';
+    const isDark = sponsor.tier === 'title' || sponsor.tier === 'co-title';
+    const hasLink = sponsor.website && sponsor.website !== '#';
+
     return (
       <Card
         key={sponsor.id}
+        hoverable={hasLink}
+        onClick={() => openLink(sponsor.website)}
         style={{
           borderRadius: 16,
-          border: `1px solid ${tier.border}`,
+          border: 'none',
           background: tier.bg,
           height: '100%',
+          cursor: hasLink ? 'pointer' : 'default',
+          transition: 'transform 0.2s, box-shadow 0.2s',
+          boxShadow: tier.shadow,
+          overflow: 'hidden',
         }}
-        styles={{ body: { padding: '24px 20px' } }}
+        styles={{ body: { padding: isLarge ? '36px 28px' : '24px 20px' } }}
       >
         <div style={{ textAlign: 'center' }}>
-          {sponsor.logo ? (
+          {sponsor.logo && (
             <div
               style={{
-                width: 80,
-                height: 80,
+                background: isDark ? tier.logoBg : 'transparent',
                 borderRadius: 12,
-                background: '#fff',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: '0 auto 12px',
-                padding: 8,
-                boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-                overflow: 'hidden',
+                padding: isDark ? 16 : 0,
+                display: 'inline-block',
+                marginBottom: 16,
               }}
             >
               <img
                 src={sponsor.logo}
                 alt={sponsor.name}
                 style={{
-                  maxWidth: '100%',
-                  maxHeight: '100%',
+                  maxWidth: '80%',
+                  maxHeight: isLarge ? 140 : 80,
                   objectFit: 'contain',
+                  display: 'block',
                 }}
               />
             </div>
-          ) : (
-            <div
-              style={{
-                width: 64,
-                height: 64,
-                borderRadius: '50%',
-                background: '#fff',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                margin: '0 auto 12px',
-                fontSize: 28,
-                color: tier.color,
-                boxShadow: '0 2px 8px rgba(0,0,0,0.06)',
-              }}
-            >
-              {tier.icon}
-            </div>
           )}
-          <Title level={5} style={{ margin: '0 0 4px', color: tier.color }}>
-            {sponsor.name}
-          </Title>
-          <Tag
-            color={tier.color}
+          <div
             style={{
-              borderRadius: 12,
+              fontSize: isLarge ? 22 : 16,
+              fontWeight: isLarge ? 800 : 600,
+              color: tier.nameColor,
+              margin: '0 0 8px',
+            }}
+          >
+            {sponsor.name}
+          </div>
+          <span
+            style={{
+              display: 'inline-block',
+              background: tier.badgeBg,
+              color: tier.badgeColor,
+              fontSize: 10,
+              fontWeight: 700,
               textTransform: 'uppercase',
-              fontSize: 11,
-              letterSpacing: 0.5,
+              letterSpacing: 1,
+              padding: '3px 14px',
+              borderRadius: 20,
             }}
           >
             {tier.label}
-          </Tag>
+          </span>
           <Paragraph
-            type="secondary"
-            style={{ margin: '12px 0 0', fontSize: 13 }}
+            style={{ margin: '14px 0 0', fontSize: 13, color: tier.descColor }}
           >
             {sponsor.description}
           </Paragraph>
-          {sponsor.website && sponsor.website !== '#' && (
-            <Button
-              type="link"
-              icon={<GlobalOutlined />}
-              href={sponsor.website}
-              target="_blank"
-              size="small"
-              style={{ marginTop: 8 }}
+          {hasLink && (
+            <Text
+              style={{ fontSize: 12, marginTop: 4, display: 'block', color: tier.linkColor }}
             >
+              <GlobalOutlined style={{ marginRight: 4 }} />
               Visit Website
-            </Button>
+            </Text>
           )}
         </div>
       </Card>
@@ -149,15 +165,15 @@ export default function SponsorsPage() {
   const renderTierSection = (tierKey) => {
     const tier = TIER_CONFIG[tierKey];
     const items = grouped[tierKey];
-    if (!items.length) return null;
+    if (!items || !items.length) return null;
 
-    const colSpan =
-      tierKey === 'title'
-        ? { xs: 24, sm: 24, md: 12, lg: 8 }
-        : { xs: 24, sm: 12, md: 8 };
+    const isFeatureTier = tierKey === 'title' || tierKey === 'co-title';
+    const colSpan = isFeatureTier
+      ? { xs: 24 }
+      : { xs: 24, sm: 12, md: 8 };
 
     return (
-      <div key={tierKey} style={{ marginBottom: 32 }}>
+      <div key={tierKey} style={{ marginBottom: 36 }}>
         <div
           style={{
             display: 'flex',
@@ -166,15 +182,15 @@ export default function SponsorsPage() {
             marginBottom: 16,
           }}
         >
-          <span style={{ color: tier.color, fontSize: 20 }}>{tier.icon}</span>
-          <Title level={4} style={{ margin: 0, color: tier.color }}>
-            {tier.label}s
+          <span style={{ color: tier.sectionColor, fontSize: 20 }}>{tier.icon}</span>
+          <Title level={4} style={{ margin: 0, color: tier.sectionColor }}>
+            {items.length > 1 ? `${tier.label}s` : tier.label}
           </Title>
         </div>
-        <Row gutter={[16, 16]}>
+        <Row gutter={[16, 16]} justify={isFeatureTier ? 'center' : 'start'}>
           {items.map((s) => (
-            <Col key={s.id} {...colSpan}>
-              {renderSponsorCard(s)}
+            <Col key={s.id} {...colSpan} style={isFeatureTier ? { maxWidth: 600 } : undefined}>
+              {renderSponsorCard(s, isFeatureTier ? 'large' : 'default')}
             </Col>
           ))}
         </Row>
@@ -199,8 +215,8 @@ export default function SponsorsPage() {
       ) : (
         <>
           {renderTierSection('title')}
-          {renderTierSection('gold')}
-          {renderTierSection('silver')}
+          {renderTierSection('co-title')}
+          {renderTierSection('team-sponsor')}
         </>
       )}
     </div>
