@@ -6,7 +6,6 @@ import {
   Typography,
   Row,
   Col,
-  Badge,
   Button,
   Result,
   Avatar,
@@ -19,7 +18,8 @@ import {
   DollarOutlined,
   LinkOutlined,
 } from '@ant-design/icons';
-import { useLeague, formatPrice } from '../context/LeagueContext';
+import { useLeague } from '../context/LeagueContext';
+import SalePanel from '../components/SalePanel';
 
 const { Title, Text, Paragraph } = Typography;
 
@@ -196,68 +196,7 @@ export default function PlayerDetailPage() {
           </span>
         }
       >
-        {player.sold ? (
-          <>
-            <Row gutter={[32, 28]}>
-              <Col xs={12} sm={6}>
-                <Text type="secondary" style={{ fontSize: 14, display: 'block', marginBottom: 6, letterSpacing: 0.5 }}>
-                  STATUS
-                </Text>
-                <Badge
-                  status="success"
-                  text={<Text strong style={{ color: '#52c41a', fontSize: 18 }}>Sold</Text>}
-                />
-              </Col>
-              <Col xs={12} sm={6}>
-                <Text type="secondary" style={{ fontSize: 14, display: 'block', marginBottom: 6, letterSpacing: 0.5 }}>
-                  SOLD PRICE
-                </Text>
-                <Text strong style={{ fontSize: 28, color: '#52c41a' }}>
-                  {formatPrice(player.price)}
-                </Text>
-              </Col>
-              <Col xs={12} sm={6}>
-                <Text type="secondary" style={{ fontSize: 14, display: 'block', marginBottom: 6, letterSpacing: 0.5 }}>
-                  BASE PRICE
-                </Text>
-                <Text style={{ fontSize: 22 }}>
-                  {formatPrice(player.basePrice)}
-                </Text>
-              </Col>
-              <Col xs={12} sm={6}>
-                <Text type="secondary" style={{ fontSize: 14, display: 'block', marginBottom: 6, letterSpacing: 0.5 }}>
-                  TEAM
-                </Text>
-                {player.team ? (
-                  <Tag
-                    color={TEAM_COLORS[player.team]}
-                    style={{ fontWeight: 600, fontSize: 16, padding: '4px 14px', borderRadius: 12 }}
-                  >
-                    {player.team}
-                  </Tag>
-                ) : (
-                  <Text type="secondary">Unassigned</Text>
-                )}
-              </Col>
-            </Row>
-          </>
-        ) : (
-          <div style={{ textAlign: 'center', padding: '20px 0' }}>
-            <Badge
-              status="warning"
-              text={
-                <Text strong style={{ fontSize: 22 }}>
-                  Available for Auction
-                </Text>
-              }
-            />
-            <Divider style={{ margin: '20px 0' }} />
-            <Text type="secondary" style={{ fontSize: 16 }}>Base Price: </Text>
-            <Text strong style={{ fontSize: 28, color: '#1677ff' }}>
-              {formatPrice(player.basePrice)}
-            </Text>
-          </div>
-        )}
+        <SalePanel player={player} />
       </Card>
     </div>
   );

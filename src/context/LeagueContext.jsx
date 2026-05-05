@@ -75,6 +75,25 @@ export function LeagueProvider({ children }) {
     [update],
   );
 
+  const replaceAllPlayers = useCallback(
+    (newPlayers) => {
+      if (!Array.isArray(newPlayers)) {
+        throw new Error('Imported data must be a JSON array of players');
+      }
+      // Light validation: every entry must look like a player.
+      for (const [i, p] of newPlayers.entries()) {
+        if (!p || typeof p !== 'object') {
+          throw new Error(`Item ${i} is not a player object`);
+        }
+        if (typeof p.id !== 'number' || typeof p.name !== 'string') {
+          throw new Error(`Item ${i} is missing required "id" or "name"`);
+        }
+      }
+      update((prev) => ({ ...prev, players: newPlayers }));
+    },
+    [update],
+  );
+
   const updateSponsor = useCallback(
     (id, changes) =>
       update((prev) => ({
@@ -155,6 +174,7 @@ export function LeagueProvider({ children }) {
       updatePlayer,
       addPlayer,
       deletePlayer,
+      replaceAllPlayers,
       updateSponsor,
       addSponsor,
       deleteSponsor,
@@ -167,6 +187,7 @@ export function LeagueProvider({ children }) {
       updatePlayer,
       addPlayer,
       deletePlayer,
+      replaceAllPlayers,
       updateSponsor,
       addSponsor,
       deleteSponsor,
@@ -187,8 +208,7 @@ export function useLeague() {
 }
 
 export function formatPrice(amount) {
-  if (!amount) return 'Unsold';
-  if (amount >= 100000) return `₹${(amount / 100000).toFixed(1)}L`;
-  if (amount >= 1000) return `₹${(amount / 1000).toFixed(0)}K`;
-  return `₹${amount}`;
+  if (amount == null) return 'Unsold';
+  // Indian-style grouping: 1,00,000 etc. Uses exact value, no rounding.
+  return `₹${Number(amount).toLocaleString('en-IN')}`;
 }
