@@ -18,8 +18,7 @@ export default function LandingPage() {
   const { players, teams, sponsors } = useLeague();
 
   const soldCount = players.filter((p) => p.sold).length;
-  const totalRuns = players.reduce((s, p) => s + p.runs, 0);
-  const totalWickets = players.reduce((s, p) => s + p.wickets, 0);
+  const sponsorCount = sponsors.length;
 
   return (
     <div>
@@ -109,21 +108,21 @@ export default function LandingPage() {
                 color: '#1677ff',
               },
               {
-                title: 'Sold',
-                value: soldCount,
-                suffix: `/ ${players.length}`,
+                title: 'Teams',
+                value: teams.length,
                 icon: <TrophyOutlined />,
                 color: '#52c41a',
               },
               {
-                title: 'Total Runs',
-                value: totalRuns,
-                icon: <ThunderboltOutlined />,
+                title: 'Sponsors',
+                value: sponsorCount,
+                icon: <GiftOutlined />,
                 color: '#faad14',
               },
               {
-                title: 'Wickets',
-                value: totalWickets,
+                title: 'Auction',
+                value: soldCount,
+                suffix: `/ ${players.length}`,
                 icon: <ThunderboltOutlined />,
                 color: '#ff4d4f',
               },
@@ -219,7 +218,7 @@ export default function LandingPage() {
         {/* Sponsors Preview — tiered hierarchy */}
         {sponsors.length > 0 && (() => {
           const titleSponsor = sponsors.find((s) => s.tier === 'title');
-          const coTitleSponsor = sponsors.find((s) => s.tier === 'co-title');
+          const coTitleSponsors = sponsors.filter((s) => s.tier === 'co-title');
           const teamSponsors = sponsors.filter((s) => s.tier === 'team-sponsor');
 
           const TIER_STYLES = {
@@ -235,13 +234,13 @@ export default function LandingPage() {
               logoBg: 'rgba(255,255,255,0.12)',
             },
             'co-title': {
-              bg: 'linear-gradient(135deg, #2a1f0a 0%, #3d2e10 60%, #5a4520 100%)',
+              bg: 'linear-gradient(135deg, #0a2e2a 0%, #0e3d38 60%, #145550 100%)',
               border: 'none',
-              shadow: '0 6px 28px rgba(50,35,0,0.25)',
-              nameColor: '#ffd666',
-              labelColor: 'rgba(255,215,102,0.7)',
-              badgeBg: 'linear-gradient(90deg, #ffd666, #faad14)',
-              badgeColor: '#2a1f0a',
+              shadow: '0 6px 28px rgba(10,46,42,0.3)',
+              nameColor: '#5cdbd3',
+              labelColor: 'rgba(92,219,211,0.7)',
+              badgeBg: 'linear-gradient(90deg, #36cfc9, #13c2c2)',
+              badgeColor: '#0a2e2a',
               logoFilter: 'none',
               logoBg: 'rgba(255,255,255,0.9)',
             },
@@ -350,15 +349,19 @@ export default function LandingPage() {
                 </div>
               )}
 
-              {/* Co-Title Sponsor — full width, dark gold */}
-              {coTitleSponsor && (
-                <div style={{ marginBottom: 16 }}>
-                  <SponsorCard
-                    sponsor={coTitleSponsor}
-                    tierLabel="Co-Title Sponsor"
-                    large
-                  />
-                </div>
+              {/* Co-Title Sponsors — side by side */}
+              {coTitleSponsors.length > 0 && (
+                <Row gutter={[16, 16]} style={{ marginBottom: 16 }}>
+                  {coTitleSponsors.map((s) => (
+                    <Col xs={24} sm={12} key={s.id}>
+                      <SponsorCard
+                        sponsor={s}
+                        tierLabel="Co-Title Sponsor"
+                        large
+                      />
+                    </Col>
+                  ))}
+                </Row>
               )}
 
               {/* Team Sponsors row — clean white */}

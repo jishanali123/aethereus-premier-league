@@ -16,6 +16,14 @@
     "website": "https://salunkhesmulticare.co.in/"
   },
   {
+    "id": 6,
+    "name": "Vinayak Cycle World",
+    "tier": "co-title",
+    "description": "Co-Title Sponsor — Sales & Service, riding with the league",
+    "logo": "/images/sponsors/vinayak-cycle-world.png",
+    "website": "https://www.justdial.com/Pune/Vinayak-Cycle-World-Near-Swastik-Furniture-Mahalunge/020PXX20-XX20-250306110026-W3B9_BZDET"
+  },
+  {
     "id": 3,
     "name": "Hotel Durga",
     "tier": "team-sponsor",
@@ -38,5 +46,13 @@
     "description": "Team Sponsor — Your one-stop stationery destination",
     "logo": "/images/sponsors/sp-stationers.png",
     "website": "https://www.google.com/search?client=safari&hs=Bv9U&sca_esv=8663b7cb61c76c33&channel=iphone_bm&biw=414&bih=750&sxsrf=ANbL-n6LzjoNfyoe0Up3-Rhe_CrCor0G-A:1777870352255&kgmid=/g/11b807y9_f&q=S+P+Stationers+Super+Store&shem=epsd1,rimspwouoe&shndl=30&source=sh/x/loc/act/m1/3&kgs=3beafee9f2c51354&utm_source=epsd1,rimspwouoe,sh/x/loc/act/m1/3"
+  },
+  {
+    "id": 7,
+    "name": "Inter Furniture & Interior",
+    "tier": "team-sponsor",
+    "description": "Team Sponsor — Furniture & interior solutions",
+    "logo": "/images/sponsors/inter-furniture.png",
+    "website": "https://www.justdial.com/Pune/Inter-For-Furniture-And-Interior-Mahalunge/020PXX20-XX20-250512113006-Z4X6_BZDET"
   }
 ]

@@ -33,15 +33,15 @@ const TIER_CONFIG = {
   'co-title': {
     icon: <StarOutlined />,
     label: 'Co-Title Sponsor',
-    bg: 'linear-gradient(135deg, #2a1f0a 0%, #3d2e10 60%, #5a4520 100%)',
-    shadow: '0 6px 28px rgba(50,35,0,0.25)',
-    nameColor: '#ffd666',
-    descColor: 'rgba(255,215,102,0.6)',
-    badgeBg: 'linear-gradient(90deg, #ffd666, #faad14)',
-    badgeColor: '#2a1f0a',
-    linkColor: 'rgba(255,215,102,0.7)',
+    bg: 'linear-gradient(135deg, #0a2e2a 0%, #0e3d38 60%, #145550 100%)',
+    shadow: '0 6px 28px rgba(10,46,42,0.3)',
+    nameColor: '#5cdbd3',
+    descColor: 'rgba(92,219,211,0.6)',
+    badgeBg: 'linear-gradient(90deg, #36cfc9, #13c2c2)',
+    badgeColor: '#0a2e2a',
+    linkColor: 'rgba(92,219,211,0.7)',
     logoBg: 'rgba(255,255,255,0.9)',
-    sectionColor: '#d48806',
+    sectionColor: '#13c2c2',
   },
   'team-sponsor': {
     icon: <TeamOutlined />,
@@ -167,10 +167,14 @@ export default function SponsorsPage() {
     const items = grouped[tierKey];
     if (!items || !items.length) return null;
 
-    const isFeatureTier = tierKey === 'title' || tierKey === 'co-title';
-    const colSpan = isFeatureTier
+    const isTitle = tierKey === 'title';
+    const isCoTitle = tierKey === 'co-title';
+    const isFeatureTier = isTitle || isCoTitle;
+    const colSpan = isTitle
       ? { xs: 24 }
-      : { xs: 24, sm: 12, md: 8 };
+      : isCoTitle
+        ? { xs: 24, sm: 12 }
+        : { xs: 24, sm: 12, md: 8 };
 
     return (
       <div key={tierKey} style={{ marginBottom: 36 }}>
@@ -187,9 +191,9 @@ export default function SponsorsPage() {
             {items.length > 1 ? `${tier.label}s` : tier.label}
           </Title>
         </div>
-        <Row gutter={[16, 16]} justify={isFeatureTier ? 'center' : 'start'}>
+        <Row gutter={[16, 16]} justify={isTitle ? 'center' : 'start'}>
           {items.map((s) => (
-            <Col key={s.id} {...colSpan} style={isFeatureTier ? { maxWidth: 600 } : undefined}>
+            <Col key={s.id} {...colSpan} style={isTitle ? { maxWidth: 600 } : undefined}>
               {renderSponsorCard(s, isFeatureTier ? 'large' : 'default')}
             </Col>
           ))}

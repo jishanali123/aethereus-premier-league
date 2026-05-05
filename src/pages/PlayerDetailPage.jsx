@@ -65,12 +65,12 @@ export default function PlayerDetailPage() {
   }
 
   return (
-    <div style={{ maxWidth: 900, margin: '0 auto', padding: '32px 24px' }}>
+    <div style={{ maxWidth: 1400, margin: '0 auto', padding: '32px 32px 48px' }}>
       <Button
         type="text"
         icon={<ArrowLeftOutlined />}
         onClick={() => navigate('/players')}
-        style={{ padding: '4px 0', marginBottom: 16 }}
+        style={{ padding: '4px 0', marginBottom: 16, fontSize: 16 }}
       >
         Back to Roster
       </Button>
@@ -78,9 +78,9 @@ export default function PlayerDetailPage() {
       {/* ---- SECTION 1: Player Profile ---- */}
       <Card
         style={{
-          borderRadius: 16,
+          borderRadius: 20,
           overflow: 'hidden',
-          marginBottom: 24,
+          marginBottom: 28,
         }}
         styles={{ body: { padding: 0 } }}
       >
@@ -90,38 +90,38 @@ export default function PlayerDetailPage() {
             background: player.team
               ? `linear-gradient(135deg, ${TEAM_COLORS[player.team]}22 0%, ${TEAM_COLORS[player.team]}33 100%)`
               : 'linear-gradient(135deg, #1a1a2e22 0%, #0f346033 100%)',
-            padding: '32px 32px 24px',
+            padding: '48px 48px 36px',
           }}
         >
-          <Row gutter={[24, 24]} align="middle">
-            <Col xs={24} sm={8} md={6} style={{ textAlign: 'center' }}>
+          <Row gutter={[40, 32]} align="middle">
+            <Col xs={24} sm={8} md={7} lg={6} style={{ textAlign: 'center' }}>
               <Avatar
                 src={player.photo}
                 icon={<UserOutlined />}
-                size={140}
+                size={240}
                 style={{
-                  border: '4px solid #fff',
-                  boxShadow: '0 4px 16px rgba(0,0,0,0.12)',
+                  border: '6px solid #fff',
+                  boxShadow: '0 6px 24px rgba(0,0,0,0.16)',
                 }}
               />
             </Col>
-            <Col xs={24} sm={16} md={18}>
-              <Title level={2} style={{ margin: '0 0 8px' }}>
+            <Col xs={24} sm={16} md={17} lg={18}>
+              <Title level={1} style={{ margin: '0 0 12px', fontSize: 48, lineHeight: 1.1 }}>
                 {player.name}
               </Title>
               <div
-                style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 16 }}
+                style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 20 }}
               >
                 <Tag
                   color={ROLE_COLORS[player.role]}
-                  style={{ fontSize: 14, padding: '2px 12px', borderRadius: 12 }}
+                  style={{ fontSize: 18, padding: '6px 18px', borderRadius: 14, fontWeight: 600 }}
                 >
                   {player.role}
                 </Tag>
               </div>
               {player.description && (
                 <Paragraph
-                  style={{ marginBottom: 0, fontSize: 15, color: '#595959' }}
+                  style={{ marginBottom: 0, fontSize: 18, color: '#595959' }}
                 >
                   {player.description}
                 </Paragraph>
@@ -131,24 +131,33 @@ export default function PlayerDetailPage() {
         </div>
 
         {/* Ratings */}
-        <div style={{ padding: '20px 32px' }}>
-          <Row gutter={[32, 16]}>
-            <Col xs={12}>
-              <Text type="secondary" style={{ fontSize: 13, display: 'block', marginBottom: 4 }}>
-                Batting Rating
+        <div style={{ padding: '32px 48px' }}>
+          <Row gutter={[40, 24]}>
+            <Col xs={24} sm={8}>
+              <Text type="secondary" style={{ fontSize: 15, display: 'block', marginBottom: 8, letterSpacing: 0.5 }}>
+                BATTING RATING
               </Text>
-              <Rate disabled value={player.battingRating ?? 0} count={5} />
-              <Text strong style={{ marginLeft: 8, fontSize: 16 }}>
+              <Rate disabled value={player.battingRating ?? 0} count={5} style={{ fontSize: 32 }} />
+              <Text strong style={{ marginLeft: 12, fontSize: 22 }}>
                 {player.battingRating ?? 0}/5
               </Text>
             </Col>
-            <Col xs={12}>
-              <Text type="secondary" style={{ fontSize: 13, display: 'block', marginBottom: 4 }}>
-                Bowling Rating
+            <Col xs={24} sm={8}>
+              <Text type="secondary" style={{ fontSize: 15, display: 'block', marginBottom: 8, letterSpacing: 0.5 }}>
+                BOWLING RATING
               </Text>
-              <Rate disabled value={player.bowlingRating ?? 0} count={5} />
-              <Text strong style={{ marginLeft: 8, fontSize: 16 }}>
+              <Rate disabled value={player.bowlingRating ?? 0} count={5} style={{ fontSize: 32 }} />
+              <Text strong style={{ marginLeft: 12, fontSize: 22 }}>
                 {player.bowlingRating ?? 0}/5
+              </Text>
+            </Col>
+            <Col xs={24} sm={8}>
+              <Text type="secondary" style={{ fontSize: 15, display: 'block', marginBottom: 8, letterSpacing: 0.5 }}>
+                FIELDING RATING
+              </Text>
+              <Rate disabled value={player.fieldingRating ?? 0} count={5} style={{ fontSize: 32 }} />
+              <Text strong style={{ marginLeft: 12, fontSize: 22 }}>
+                {player.fieldingRating ?? 0}/5
               </Text>
             </Col>
           </Row>
@@ -175,51 +184,54 @@ export default function PlayerDetailPage() {
 
       {/* ---- SECTION 2: Auction Details ---- */}
       <Card
-        style={{ borderRadius: 16 }}
-        styles={{ header: { borderBottom: '1px solid #f0f0f0' } }}
+        style={{ borderRadius: 20 }}
+        styles={{
+          header: { borderBottom: '1px solid #f0f0f0', fontSize: 20, padding: '20px 32px' },
+          body: { padding: '28px 32px' },
+        }}
         title={
           <span>
-            <DollarOutlined style={{ marginRight: 8, color: '#faad14' }} />
+            <DollarOutlined style={{ marginRight: 10, color: '#faad14', fontSize: 22 }} />
             Auction Details
           </span>
         }
       >
         {player.sold ? (
           <>
-            <Row gutter={[24, 20]}>
+            <Row gutter={[32, 28]}>
               <Col xs={12} sm={6}>
-                <Text type="secondary" style={{ fontSize: 12, display: 'block' }}>
+                <Text type="secondary" style={{ fontSize: 14, display: 'block', marginBottom: 6, letterSpacing: 0.5 }}>
                   STATUS
                 </Text>
                 <Badge
                   status="success"
-                  text={<Text strong style={{ color: '#52c41a' }}>Sold</Text>}
+                  text={<Text strong style={{ color: '#52c41a', fontSize: 18 }}>Sold</Text>}
                 />
               </Col>
               <Col xs={12} sm={6}>
-                <Text type="secondary" style={{ fontSize: 12, display: 'block' }}>
+                <Text type="secondary" style={{ fontSize: 14, display: 'block', marginBottom: 6, letterSpacing: 0.5 }}>
                   SOLD PRICE
                 </Text>
-                <Text strong style={{ fontSize: 20, color: '#52c41a' }}>
+                <Text strong style={{ fontSize: 28, color: '#52c41a' }}>
                   {formatPrice(player.price)}
                 </Text>
               </Col>
               <Col xs={12} sm={6}>
-                <Text type="secondary" style={{ fontSize: 12, display: 'block' }}>
+                <Text type="secondary" style={{ fontSize: 14, display: 'block', marginBottom: 6, letterSpacing: 0.5 }}>
                   BASE PRICE
                 </Text>
-                <Text style={{ fontSize: 16 }}>
+                <Text style={{ fontSize: 22 }}>
                   {formatPrice(player.basePrice)}
                 </Text>
               </Col>
               <Col xs={12} sm={6}>
-                <Text type="secondary" style={{ fontSize: 12, display: 'block' }}>
+                <Text type="secondary" style={{ fontSize: 14, display: 'block', marginBottom: 6, letterSpacing: 0.5 }}>
                   TEAM
                 </Text>
                 {player.team ? (
                   <Tag
                     color={TEAM_COLORS[player.team]}
-                    style={{ fontWeight: 500, fontSize: 14, padding: '2px 12px', borderRadius: 12 }}
+                    style={{ fontWeight: 600, fontSize: 16, padding: '4px 14px', borderRadius: 12 }}
                   >
                     {player.team}
                   </Tag>
@@ -230,18 +242,18 @@ export default function PlayerDetailPage() {
             </Row>
           </>
         ) : (
-          <div style={{ textAlign: 'center', padding: '16px 0' }}>
+          <div style={{ textAlign: 'center', padding: '20px 0' }}>
             <Badge
               status="warning"
               text={
-                <Text strong style={{ fontSize: 15 }}>
+                <Text strong style={{ fontSize: 22 }}>
                   Available for Auction
                 </Text>
               }
             />
-            <Divider style={{ margin: '16px 0' }} />
-            <Text type="secondary">Base Price: </Text>
-            <Text strong style={{ fontSize: 18 }}>
+            <Divider style={{ margin: '20px 0' }} />
+            <Text type="secondary" style={{ fontSize: 16 }}>Base Price: </Text>
+            <Text strong style={{ fontSize: 28, color: '#1677ff' }}>
               {formatPrice(player.basePrice)}
             </Text>
           </div>

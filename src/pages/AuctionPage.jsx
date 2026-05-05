@@ -45,7 +45,7 @@ export default function AuctionPage() {
   const [currentPlayerId, setCurrentPlayerId] = useState(null);
   const [bidAmount, setBidAmount] = useState(0);
   const [bidTeam, setBidTeam] = useState(null);
-  const [bidStep, setBidStep] = useState(50000);
+  const [bidStep, setBidStep] = useState(50);
 
   const unsoldPlayers = useMemo(
     () => players.filter((p) => !p.sold),
@@ -258,11 +258,11 @@ export default function AuctionPage() {
                       onChange={setBidStep}
                       style={{ width: 160 }}
                       options={[
-                        { value: 10000, label: '₹10K' },
-                        { value: 25000, label: '₹25K' },
-                        { value: 50000, label: '₹50K' },
-                        { value: 100000, label: '₹1L' },
-                        { value: 200000, label: '₹2L' },
+                        { value: 25, label: '₹25' },
+                        { value: 50, label: '₹50' },
+                        { value: 100, label: '₹100' },
+                        { value: 250, label: '₹250' },
+                        { value: 500, label: '₹500' },
                       ]}
                     />
                   </div>
