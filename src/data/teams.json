@@ -1,30 +1,58 @@
 [
   {
-    "id": "royal-strikers",
-    "name": "Royal Strikers",
-    "shortName": "RS",
+    "id": "global-titans",
+    "name": "Global Titans",
+    "shortName": "GT",
     "color": "#1677ff",
-    "totalPurse": 5000
+    "totalPurse": 5000,
+    "sponsor": "Global Hardware"
   },
   {
-    "id": "thunder-kings",
-    "name": "Thunder Kings",
-    "shortName": "TK",
-    "color": "#faad14",
-    "totalPurse": 5000
-  },
-  {
-    "id": "blaze-warriors",
-    "name": "Blaze Warriors",
-    "shortName": "BW",
+    "id": "salunkhe-strikers",
+    "name": "Salunkhe Strikers",
+    "shortName": "SS",
     "color": "#ff4d4f",
-    "totalPurse": 5000
+    "totalPurse": 5000,
+    "sponsor": "Salunkhe's Multicare Clinic"
   },
   {
-    "id": "supreme-challengers",
-    "name": "Supreme Challengers",
-    "shortName": "SC",
+    "id": "vinayak-riders",
+    "name": "Vinayak Riders",
+    "shortName": "VR",
+    "color": "#faad14",
+    "totalPurse": 5000,
+    "sponsor": "Vinayak Cycle World"
+  },
+  {
+    "id": "durga-devils",
+    "name": "Durga Devils",
+    "shortName": "DD",
     "color": "#722ed1",
-    "totalPurse": 5000
+    "totalPurse": 5000,
+    "sponsor": "Hotel Durga"
+  },
+  {
+    "id": "township-thunder",
+    "name": "Township Thunder",
+    "shortName": "TT",
+    "color": "#fa8c16",
+    "totalPurse": 5000,
+    "sponsor": "Township Homes"
+  },
+  {
+    "id": "sp-spartans",
+    "name": "SP Spartans",
+    "shortName": "SPS",
+    "color": "#52c41a",
+    "totalPurse": 5000,
+    "sponsor": "S.P Stationers"
+  },
+  {
+    "id": "inter-warriors",
+    "name": "Inter Warriors",
+    "shortName": "IW",
+    "color": "#13c2c2",
+    "totalPurse": 5000,
+    "sponsor": "Inter Furniture & Interior"
   }
 ]
