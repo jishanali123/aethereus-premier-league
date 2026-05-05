@@ -28,7 +28,13 @@ const ROLE_COLORS = {
 
 export default function TeamsPage() {
   const navigate = useNavigate();
-  const { teams, teamStats } = useLeague();
+  const { teams, teamStats, sponsors } = useLeague();
+
+  const sponsorLogo = (team) => {
+    if (!team.sponsor) return null;
+    const s = sponsors.find((sp) => sp.name === team.sponsor);
+    return s?.logo || null;
+  };
 
   return (
     <div style={{ maxWidth: 1100, margin: '0 auto', padding: '32px 24px' }}>
@@ -74,12 +80,26 @@ export default function TeamsPage() {
                       marginBottom: 16,
                     }}
                   >
-                    <Title
-                      level={4}
-                      style={{ margin: 0, color: team.color }}
-                    >
-                      {team.name}
-                    </Title>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                      {sponsorLogo(team) && (
+                        <img
+                          src={sponsorLogo(team)}
+                          alt={team.sponsor}
+                          style={{
+                            height: 36,
+                            maxWidth: 60,
+                            objectFit: 'contain',
+                            borderRadius: 6,
+                          }}
+                        />
+                      )}
+                      <Title
+                        level={4}
+                        style={{ margin: 0, color: team.color }}
+                      >
+                        {team.name}
+                      </Title>
+                    </div>
                     <Tag
                       style={{
                         borderRadius: 12,

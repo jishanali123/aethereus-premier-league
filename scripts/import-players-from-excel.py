@@ -141,7 +141,9 @@ def main() -> None:
     by_key: dict[str, dict] = {}
     order: list[str] = []
     for row in ws.iter_rows(min_row=2, values_only=True):
-        timestamp, name, age, phone, photo_url, batting, bowling, fielding = row
+        # Tolerate sheets with or without the trailing CricHeroes column.
+        cells = list(row) + [None] * max(0, 9 - len(row))
+        timestamp, name, age, phone, photo_url, batting, bowling, fielding, cricheroes = cells[:9]
         if not name:
             continue
         name = str(name).strip()
@@ -150,9 +152,11 @@ def main() -> None:
         if not key:
             continue
 
-        if key not in by_key:
-            order.append(key)
-        by_key[key] = {
+        cricheroes_url = str(cricheroes).strip() if cricheroes else None
+        if cricheroes_url == "":
+            cricheroes_url = None
+
+        new_rec = {
             "name": name,
             "age": int(age) if isinstance(age, (int, float)) else None,
             "phone": phone_key or None,
@@ -160,8 +164,23 @@ def main() -> None:
             "battingRating": to_int_rating(batting),
             "bowlingRating": to_int_rating(bowling),
             "fieldingRating": to_int_rating(fielding),
+            "cricheroesUrl": cricheroes_url,
             "timestamp": timestamp.isoformat() if timestamp else None,
         }
+
+        if key not in by_key:
+            order.append(key)
+            by_key[key] = new_rec
+        else:
+            # Latest submission wins, but preserve fields the new row left blank
+            # (e.g. CricHeroes link added on an earlier submission).
+            prev = by_key[key]
+            merged = {**prev, **{k: v for k, v in new_rec.items() if v not in (None, "", 0)}}
+            # Ratings of 0 from newer row could be intentional if the older was
+            # also 0; keep the newer rating value explicitly so updates apply.
+            for k in ("battingRating", "bowlingRating", "fieldingRating"):
+                merged[k] = new_rec[k]
+            by_key[key] = merged
 
     # Build final list
     players = []
@@ -186,7 +205,7 @@ def main() -> None:
             "team": None,
             "sold": False,
             "description": "",
-            "cricheroesUrl": None,
+            "cricheroesUrl": rec["cricheroesUrl"],
         })
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
@@ -195,8 +214,10 @@ def main() -> None:
         f.write("\n")
 
     unmatched = [p["name"] for p in players if not p["photo"]]
+    cricheroes_count = sum(1 for p in players if p["cricheroesUrl"])
     print(f"Wrote {len(players)} players -> {OUT_PATH.relative_to(ROOT)}")
     print(f"Photos matched: {matched}/{len(players)}")
+    print(f"CricHeroes links: {cricheroes_count}/{len(players)}")
     if unmatched:
         print(f"Unmatched (drive URL kept): {len(unmatched)}")
         for n in unmatched:
