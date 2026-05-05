@@ -54,16 +54,29 @@ export default function AppHeader() {
       <div
         onClick={() => navigate('/')}
         style={{
-          color: '#fff',
-          fontWeight: 700,
-          fontSize: 'clamp(14px, 2.5vw, 18px)',
           cursor: 'pointer',
-          whiteSpace: 'nowrap',
-          letterSpacing: 0.5,
           flexShrink: 0,
+          display: 'flex',
+          alignItems: 'center',
+          gap: 8,
         }}
       >
-        🏏 APL
+        <img
+          src="/images/apl-logo.png"
+          alt="Aethereus Premier League"
+          style={{ height: 44, objectFit: 'contain' }}
+        />
+        <span
+          style={{
+            color: '#fff',
+            fontWeight: 700,
+            fontSize: 'clamp(14px, 2.5vw, 18px)',
+            whiteSpace: 'nowrap',
+            letterSpacing: 0.5,
+          }}
+        >
+          APL
+        </span>
       </div>
 
       {/* Desktop nav */}

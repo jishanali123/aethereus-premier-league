@@ -31,6 +31,7 @@ PHOTO_NAME_ALIASES = {
     "saurabhhirve": "saurabhhivre",       # photo: "Saurabh Hivre"
     "sachinwarghde": "sachinwarghade",    # photo: "Sachin Warghade"
     "sagardeshpande": "saagardeshpande",  # photo: "Saagar Deshpande"
+    "swapnilvaidya": "swapnilvaidha",     # photo: "Swapnil Vaidha"
 }
 
 
