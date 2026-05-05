@@ -1,8 +1,14 @@
 import { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Row, Col, Card, Avatar, Typography, Tag, Rate, Tooltip } from 'antd';
-import { UserOutlined, CrownOutlined } from '@ant-design/icons';
+import {
+  UserOutlined,
+  CrownOutlined,
+  DownOutlined,
+  RightOutlined,
+} from '@ant-design/icons';
 import { useLeague } from '../context/LeagueContext';
+import useCollapsibleState from '../hooks/useCollapsibleState';
 
 const { Title, Text } = Typography;
 
@@ -35,6 +41,7 @@ function MiniRating({ label, value }) {
 export default function SuperStarsSection() {
   const { players } = useLeague();
   const navigate = useNavigate();
+  const [collapsed, toggle] = useCollapsibleState('super-stars', false);
 
   const superStars = useMemo(
     () =>
@@ -51,16 +58,31 @@ export default function SuperStarsSection() {
 
   if (superStars.length === 0) return null;
 
+  const ChevronIcon = collapsed ? RightOutlined : DownOutlined;
+
   return (
     <div style={{ marginBottom: 36 }}>
       <div
+        role="button"
+        tabIndex={0}
+        onClick={toggle}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggle();
+          }
+        }}
+        aria-expanded={!collapsed}
         style={{
           display: 'flex',
           alignItems: 'center',
           gap: 12,
-          marginBottom: 16,
+          marginBottom: collapsed ? 0 : 16,
+          cursor: 'pointer',
+          userSelect: 'none',
         }}
       >
+        <ChevronIcon style={{ fontSize: 18, color: '#faad14' }} />
         <CrownOutlined style={{ fontSize: 28, color: '#faad14' }} />
         <Title level={2} style={{ margin: 0, fontSize: 28 }}>
           Super Stars
@@ -81,6 +103,7 @@ export default function SuperStarsSection() {
         </Text>
       </div>
 
+      {!collapsed && (
       <Row gutter={[20, 20]}>
         {superStars.map((p) => (
           <Col key={p.id} xs={24} sm={12} md={8} lg={6} xl={4}>
@@ -155,6 +178,7 @@ export default function SuperStarsSection() {
           </Col>
         ))}
       </Row>
+      )}
     </div>
   );
 }

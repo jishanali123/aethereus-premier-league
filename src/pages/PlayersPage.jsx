@@ -4,11 +4,17 @@ import {
   DownloadOutlined,
   UploadOutlined,
   ClockCircleOutlined,
+  ThunderboltOutlined,
+  FireOutlined,
 } from '@ant-design/icons';
 import PlayerTable from '../components/PlayerTable';
 import SuperStarsSection from '../components/SuperStarsSection';
+import RatingSection from '../components/RatingSection';
 import TeamPurseStrip from '../components/TeamPurseStrip';
 import { useLeague } from '../context/LeagueContext';
+
+const TOP_BATTERS_FILTER = (p) => (p.battingRating ?? 0) >= 4;
+const TOP_BOWLERS_FILTER = (p) => (p.bowlingRating ?? 0) >= 4;
 
 const { Title, Text } = Typography;
 
@@ -256,6 +262,28 @@ export default function PlayersPage() {
       <PlayerTable
         teamFilter={teamFilter}
         onClearTeamFilter={() => setTeamFilter(null)}
+      />
+
+      <RatingSection
+        title="Top Batters"
+        icon={
+          <ThunderboltOutlined style={{ fontSize: 26, color: '#1677ff' }} />
+        }
+        accent="#1677ff"
+        subtitle="Batting rating 4 or 5"
+        primaryStat="battingRating"
+        filter={TOP_BATTERS_FILTER}
+        storageKey="top-batters"
+      />
+
+      <RatingSection
+        title="Top Bowlers"
+        icon={<FireOutlined style={{ fontSize: 26, color: '#ff4d4f' }} />}
+        accent="#ff4d4f"
+        subtitle="Bowling rating 4 or 5"
+        primaryStat="bowlingRating"
+        filter={TOP_BOWLERS_FILTER}
+        storageKey="top-bowlers"
       />
     </div>
   );
