@@ -1,8 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
-import { Typography, Button, Tooltip, message, Space, Modal } from 'antd';
+import { useEffect, useState } from 'react';
+import { Typography, Button, Tooltip, message } from 'antd';
 import {
   DownloadOutlined,
-  UploadOutlined,
   ClockCircleOutlined,
   ThunderboltOutlined,
   FireOutlined,
@@ -53,8 +52,7 @@ function formatRelativeTime(iso) {
 }
 
 export default function PlayersPage() {
-  const { players, replaceAllPlayers } = useLeague();
-  const fileInputRef = useRef(null);
+  const { players } = useLeague();
   const [lastExportIso, setLastExportIso] = useState(() => {
     try {
       return localStorage.getItem(LAST_EXPORT_KEY);
@@ -99,68 +97,6 @@ export default function PlayersPage() {
     }
   };
 
-  const handleImportClick = () => fileInputRef.current?.click();
-
-  const handleFileChosen = (event) => {
-    const file = event.target.files?.[0];
-    event.target.value = ''; // allow re-selecting the same file later
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onerror = () => message.error('Could not read the file.');
-    reader.onload = () => {
-      let parsed;
-      try {
-        parsed = JSON.parse(String(reader.result));
-      } catch (err) {
-        message.error('Invalid JSON file: ' + (err?.message || 'parse error'));
-        return;
-      }
-
-      // Confirm before overwriting current state.
-      const incomingCount = Array.isArray(parsed) ? parsed.length : 0;
-      const incomingSold = Array.isArray(parsed)
-        ? parsed.filter((p) => p && p.sold).length
-        : 0;
-      const currentSold = players.filter((p) => p.sold).length;
-
-      Modal.confirm({
-        title: 'Replace current player data?',
-        content: (
-          <div>
-            <p style={{ marginBottom: 8 }}>
-              <strong>{file.name}</strong>
-            </p>
-            <p style={{ marginBottom: 4 }}>
-              Incoming: {incomingCount} players ({incomingSold} sold)
-            </p>
-            <p style={{ marginBottom: 4 }}>
-              Current: {players.length} players ({currentSold} sold)
-            </p>
-            <p style={{ marginTop: 12, color: '#cf1322' }}>
-              This will replace ALL player data on this device. The repository
-              files are unchanged.
-            </p>
-          </div>
-        ),
-        okText: 'Replace data',
-        okButtonProps: { danger: true },
-        cancelText: 'Cancel',
-        onOk: () => {
-          try {
-            replaceAllPlayers(parsed);
-            message.success(`Loaded ${incomingCount} players from ${file.name}`);
-          } catch (err) {
-            message.error(
-              'Import failed: ' + (err?.message || 'invalid data shape'),
-            );
-          }
-        },
-      });
-    };
-    reader.readAsText(file);
-  };
-
   const lastExportLabel = formatRelativeTime(lastExportIso);
 
   return (
@@ -193,29 +129,17 @@ export default function PlayersPage() {
             gap: 6,
           }}
         >
-          <Space wrap>
-            <Tooltip title="Pick a previously-exported JSON file to restore the auction state on this device.">
-              <Button
-                size="large"
-                icon={<UploadOutlined />}
-                onClick={handleImportClick}
-                style={{ height: 48, fontWeight: 500 }}
-              >
-                Import Results
-              </Button>
-            </Tooltip>
-            <Tooltip title="Download a JSON snapshot of every player's current sale status, team and price.">
-              <Button
-                type="primary"
-                size="large"
-                icon={<DownloadOutlined />}
-                onClick={handleExport}
-                style={{ height: 48, fontWeight: 600 }}
-              >
-                Export Auction Results
-              </Button>
-            </Tooltip>
-          </Space>
+          <Tooltip title="Download a JSON snapshot of every player's current sale status, team and price.">
+            <Button
+              type="primary"
+              size="large"
+              icon={<DownloadOutlined />}
+              onClick={handleExport}
+              style={{ height: 48, fontWeight: 600 }}
+            >
+              Export Auction Results
+            </Button>
+          </Tooltip>
           <Text
             type="secondary"
             style={{ fontSize: 13 }}
@@ -226,13 +150,6 @@ export default function PlayersPage() {
               ? `Last exported ${lastExportLabel}`
               : 'No backup exported yet — hit Export to save a copy'}
           </Text>
-          <input
-            ref={fileInputRef}
-            type="file"
-            accept="application/json,.json"
-            onChange={handleFileChosen}
-            style={{ display: 'none' }}
-          />
         </div>
       </div>
 
