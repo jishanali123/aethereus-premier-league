@@ -4,27 +4,27 @@
     "name": "Royal Strikers",
     "shortName": "RS",
     "color": "#1677ff",
-    "totalPurse": 5000000
+    "totalPurse": 5000
   },
   {
     "id": "thunder-kings",
     "name": "Thunder Kings",
     "shortName": "TK",
     "color": "#faad14",
-    "totalPurse": 5000000
+    "totalPurse": 5000
   },
   {
     "id": "blaze-warriors",
     "name": "Blaze Warriors",
     "shortName": "BW",
     "color": "#ff4d4f",
-    "totalPurse": 5000000
+    "totalPurse": 5000
   },
   {
     "id": "supreme-challengers",
     "name": "Supreme Challengers",
     "shortName": "SC",
     "color": "#722ed1",
-    "totalPurse": 5000000
+    "totalPurse": 5000
   }
 ]

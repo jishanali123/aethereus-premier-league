@@ -113,6 +113,30 @@ export default function PlayerEditModal({ player, open, onClose }) {
 
         <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
           <Form.Item
+            name="battingRating"
+            label="Batting (1-5)"
+            style={{ flex: 1, minWidth: 100 }}
+          >
+            <InputNumber min={0} max={5} style={{ width: '100%' }} />
+          </Form.Item>
+          <Form.Item
+            name="bowlingRating"
+            label="Bowling (1-5)"
+            style={{ flex: 1, minWidth: 100 }}
+          >
+            <InputNumber min={0} max={5} style={{ width: '100%' }} />
+          </Form.Item>
+          <Form.Item
+            name="fieldingRating"
+            label="Fielding (1-5)"
+            style={{ flex: 1, minWidth: 100 }}
+          >
+            <InputNumber min={0} max={5} style={{ width: '100%' }} />
+          </Form.Item>
+        </div>
+
+        <div style={{ display: 'flex', gap: 16, flexWrap: 'wrap' }}>
+          <Form.Item
             name="matches"
             label="Matches"
             style={{ flex: 1, minWidth: 100 }}

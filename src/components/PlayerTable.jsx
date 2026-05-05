@@ -43,25 +43,27 @@ export default function PlayerTable() {
       key: 'name',
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: (name, record) => (
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
           <Avatar
             src={record.photo}
             icon={<UserOutlined />}
-            size={40}
+            size={64}
             style={{ flexShrink: 0 }}
           />
           <div>
-            <div style={{ fontWeight: 600, fontSize: 14 }}>{name}</div>
-            <div className="mobile-player-sub" style={{ display: 'none', marginTop: 2, fontSize: 12, color: '#8c8c8c' }}>
+            <div style={{ fontWeight: 600, fontSize: 20, lineHeight: 1.2 }}>{name}</div>
+            <div className="mobile-player-sub" style={{ display: 'none', marginTop: 4, fontSize: 14, color: '#8c8c8c' }}>
               <Tag
                 color={ROLE_COLORS[record.role] || 'default'}
-                style={{ fontSize: 11, padding: '0 6px', borderRadius: 8, marginRight: 6 }}
+                style={{ fontSize: 13, padding: '2px 8px', borderRadius: 8, marginRight: 6 }}
               >
                 {record.role}
               </Tag>
               {'⭐'.repeat(record.battingRating ?? 0)} Bat
               {' · '}
               {'⭐'.repeat(record.bowlingRating ?? 0)} Bowl
+              {' · '}
+              {'⭐'.repeat(record.fieldingRating ?? 0)} Field
             </div>
           </div>
         </div>
@@ -73,7 +75,12 @@ export default function PlayerTable() {
       key: 'role',
       sorter: (a, b) => a.role.localeCompare(b.role),
       render: (role) => (
-        <Tag color={ROLE_COLORS[role] || 'default'}>{role}</Tag>
+        <Tag
+          color={ROLE_COLORS[role] || 'default'}
+          style={{ fontSize: 14, padding: '4px 12px', borderRadius: 10 }}
+        >
+          {role}
+        </Tag>
       ),
       responsive: ['sm'],
     },
@@ -83,7 +90,7 @@ export default function PlayerTable() {
       key: 'battingRating',
       sorter: (a, b) => (a.battingRating ?? 0) - (b.battingRating ?? 0),
       render: (val) => (
-        <Rate disabled value={val ?? 0} count={5} style={{ fontSize: 14 }} />
+        <Rate disabled value={val ?? 0} count={5} style={{ fontSize: 22 }} />
       ),
       responsive: ['md'],
     },
@@ -93,9 +100,19 @@ export default function PlayerTable() {
       key: 'bowlingRating',
       sorter: (a, b) => (a.bowlingRating ?? 0) - (b.bowlingRating ?? 0),
       render: (val) => (
-        <Rate disabled value={val ?? 0} count={5} style={{ fontSize: 14 }} />
+        <Rate disabled value={val ?? 0} count={5} style={{ fontSize: 22 }} />
       ),
       responsive: ['md'],
+    },
+    {
+      title: 'Fielding',
+      dataIndex: 'fieldingRating',
+      key: 'fieldingRating',
+      sorter: (a, b) => (a.fieldingRating ?? 0) - (b.fieldingRating ?? 0),
+      render: (val) => (
+        <Rate disabled value={val ?? 0} count={5} style={{ fontSize: 22 }} />
+      ),
+      responsive: ['lg'],
     },
     {
       title: 'Status',
@@ -104,7 +121,11 @@ export default function PlayerTable() {
       render: (sold) => (
         <Badge
           status={sold ? 'success' : 'warning'}
-          text={sold ? 'Sold' : 'Available'}
+          text={
+            <span style={{ fontSize: 15, fontWeight: 500 }}>
+              {sold ? 'Sold' : 'Available'}
+            </span>
+          }
         />
       ),
       responsive: ['sm'],
@@ -112,13 +133,13 @@ export default function PlayerTable() {
   ];
 
   return (
-    <div>
+    <div className="player-table-projector">
       <div
         style={{
           display: 'flex',
           flexWrap: 'wrap',
-          gap: 12,
-          marginBottom: 20,
+          gap: 16,
+          marginBottom: 24,
         }}
       >
         <Search
@@ -126,25 +147,37 @@ export default function PlayerTable() {
           prefix={<SearchOutlined />}
           allowClear
           onChange={(e) => setSearchText(e.target.value)}
-          style={{ flex: '1 1 240px', maxWidth: 360 }}
+          style={{ flex: '1 1 320px', maxWidth: 480, fontSize: 16 }}
           size="large"
         />
         <Select
           placeholder="All Roles"
           allowClear
           onChange={(val) => setRoleFilter(val)}
-          style={{ flex: '0 1 180px' }}
+          style={{ flex: '0 1 220px' }}
           size="large"
           options={roles.map((r) => ({ value: r, label: r }))}
         />
+        <div style={{ flex: 1, minWidth: 0 }} />
+        <div
+          style={{
+            alignSelf: 'center',
+            color: '#8c8c8c',
+            fontSize: 16,
+            fontWeight: 500,
+          }}
+        >
+          {filteredPlayers.length} players
+        </div>
       </div>
 
       <Table
         dataSource={filteredPlayers}
         columns={columns}
         rowKey="id"
+        size="large"
         pagination={{
-          pageSize: 10,
+          pageSize: 15,
           showSizeChanger: false,
           hideOnSinglePage: true,
         }}
@@ -162,7 +195,7 @@ export default function PlayerTable() {
             </div>
           ),
         }}
-        style={{ borderRadius: 12, overflow: 'hidden' }}
+        style={{ borderRadius: 12, overflow: 'hidden', fontSize: 16 }}
       />
     </div>
   );
