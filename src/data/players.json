@@ -1358,5 +1358,37 @@
     "sold": false,
     "description": "",
     "cricheroesUrl": null
+  },
+  {
+    "id": 86,
+    "name": "Jisu jha",
+    "role": "Batsman",
+    "battingRating": 5,
+    "bowlingRating": 2,
+    "fieldingRating": 5,
+    "photo": "/player-photos/IMG_0728 - Jisu Jha.png",
+    "photoDriveUrl": "https://drive.google.com/open?id=1yqPTUw8LlXGiQ2YXQkcth_qfURaehOrF",
+    "basePrice": 100,
+    "price": 0,
+    "team": null,
+    "sold": false,
+    "description": "",
+    "cricheroesUrl": null
+  },
+  {
+    "id": 87,
+    "name": "Vikram pratap singh",
+    "role": "All-Rounder",
+    "battingRating": 5,
+    "bowlingRating": 5,
+    "fieldingRating": 5,
+    "photo": "/player-photos/IMG_9906 - Vikram Pratap.jpeg",
+    "photoDriveUrl": "https://drive.google.com/open?id=13R7Rp1ScSSmWC4MwhQZDSHsHCGlMQkeh",
+    "basePrice": 100,
+    "price": 0,
+    "team": null,
+    "sold": false,
+    "description": "",
+    "cricheroesUrl": null
   }
 ]
