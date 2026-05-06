@@ -1,7 +1,7 @@
 [
   {
-    "id": "global-titans",
-    "name": "Global Titans",
+    "id": "global-hammerzz",
+    "name": "Global Hammerzz",
     "shortName": "GT",
     "color": "#1677ff",
     "totalPurse": 5000,
@@ -9,7 +9,7 @@
   },
   {
     "id": "salunkhe-strikers",
-    "name": "Salunkhe Strikers",
+    "name": "Dr Lal Path Salunkhe Superkings",
     "shortName": "SS",
     "color": "#ff4d4f",
     "totalPurse": 5000,
@@ -24,7 +24,7 @@
     "sponsor": "Vinayak Cycle World"
   },
   {
-    "id": "durga-devils",
+    "id": "durga-dhurandars",
     "name": "Hotel Durga Dhurandhars",
     "shortName": "HDD",
     "color": "#722ed1",
@@ -32,9 +32,9 @@
     "sponsor": "Hotel Durga"
   },
   {
-    "id": "township-thunder",
-    "name": "Township Thunder",
-    "shortName": "TT",
+    "id": "township-homes-warrior",
+    "name": "Township Homes Warriors",
+    "shortName": "THW",
     "color": "#fa8c16",
     "totalPurse": 5000,
     "sponsor": "Township Homes"
