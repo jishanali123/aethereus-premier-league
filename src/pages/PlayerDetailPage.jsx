@@ -17,6 +17,7 @@ import {
   UserOutlined,
   DollarOutlined,
   LinkOutlined,
+  CrownOutlined,
 } from '@ant-design/icons';
 import { useLeague } from '../context/LeagueContext';
 import SalePanel from '../components/SalePanel';
@@ -40,12 +41,14 @@ const TEAM_COLORS = {
 export default function PlayerDetailPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { players } = useLeague();
+  const { players, captainPlayerIds } = useLeague();
 
   const player = useMemo(
     () => players.find((p) => p.id === Number(id)) ?? null,
     [players, id],
   );
+
+  const isCaptain = player ? captainPlayerIds.has(player.id) : false;
 
   if (!player) {
     return (
@@ -95,15 +98,43 @@ export default function PlayerDetailPage() {
         >
           <Row gutter={[40, 32]} align="middle">
             <Col xs={24} sm={8} md={7} lg={6} style={{ textAlign: 'center' }}>
-              <Avatar
-                src={player.photo}
-                icon={<UserOutlined />}
-                size={240}
-                style={{
-                  border: '6px solid #fff',
-                  boxShadow: '0 6px 24px rgba(0,0,0,0.16)',
-                }}
-              />
+              <div style={{ position: 'relative', display: 'inline-block' }}>
+                <Avatar
+                  src={player.photo}
+                  icon={<UserOutlined />}
+                  size={240}
+                  style={{
+                    border: '6px solid #fff',
+                    boxShadow: '0 6px 24px rgba(0,0,0,0.16)',
+                  }}
+                />
+                {isCaptain && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 8,
+                      right: 8,
+                      width: 56,
+                      height: 56,
+                      borderRadius: '50%',
+                      background: '#faad14',
+                      color: '#fff',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 30,
+                      fontWeight: 800,
+                      lineHeight: 1,
+                      border: '4px solid #fff',
+                      boxShadow: '0 3px 10px rgba(0,0,0,0.25)',
+                    }}
+                    title="Team captain"
+                    aria-label="Team captain"
+                  >
+                    C
+                  </div>
+                )}
+              </div>
             </Col>
             <Col xs={24} sm={16} md={17} lg={18}>
               <Title level={1} style={{ margin: '0 0 12px', fontSize: 48, lineHeight: 1.1 }}>
@@ -118,6 +149,15 @@ export default function PlayerDetailPage() {
                 >
                   {player.role}
                 </Tag>
+                {isCaptain && (
+                  <Tag
+                    color="gold"
+                    icon={<CrownOutlined />}
+                    style={{ fontSize: 18, padding: '6px 18px', borderRadius: 14, fontWeight: 600 }}
+                  >
+                    Captain
+                  </Tag>
+                )}
               </div>
               {player.description && (
                 <Paragraph

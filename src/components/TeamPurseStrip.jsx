@@ -3,6 +3,7 @@ import {
   TeamOutlined,
   DownOutlined,
   RightOutlined,
+  CrownOutlined,
 } from '@ant-design/icons';
 import { useLeague, formatPrice } from '../context/LeagueContext';
 import useCollapsibleState from '../hooks/useCollapsibleState';
@@ -10,7 +11,7 @@ import useCollapsibleState from '../hooks/useCollapsibleState';
 const { Text, Title } = Typography;
 
 export default function TeamPurseStrip({ selectedTeam = null, onTeamClick }) {
-  const { teams, teamStats } = useLeague();
+  const { teams, teamStats, captainByTeamName } = useLeague();
   const [collapsed, toggle] = useCollapsibleState('team-purses', true);
 
   const handleClick = (teamName) => {
@@ -146,6 +147,30 @@ export default function TeamPurseStrip({ selectedTeam = null, onTeamClick }) {
                   strokeColor={t.color}
                   showInfo={false}
                 />
+                {captainByTeamName[t.name] && (
+                  <div
+                    style={{
+                      marginTop: 8,
+                      fontSize: 12,
+                      color: '#8c8c8c',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: 6,
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap',
+                    }}
+                    title={`Captain: ${captainByTeamName[t.name].name}`}
+                  >
+                    <CrownOutlined style={{ color: '#faad14' }} />
+                    <span>
+                      Captain:{' '}
+                      <Text strong style={{ fontSize: 12, color: '#262626' }}>
+                        {captainByTeamName[t.name].name}
+                      </Text>
+                    </span>
+                  </div>
+                )}
               </Card>
             </Tooltip>
           </Col>

@@ -5,7 +5,8 @@
     "shortName": "GT",
     "color": "#1677ff",
     "totalPurse": 5000,
-    "sponsor": "Global Hardware"
+    "sponsor": "Global Hardware",
+    "captainPlayerId": 44
   },
   {
     "id": "salunkhe-strikers",
@@ -13,7 +14,8 @@
     "shortName": "SS",
     "color": "#ff4d4f",
     "totalPurse": 5000,
-    "sponsor": "Salunkhe's Multicare Clinic"
+    "sponsor": "Salunkhe's Multicare Clinic",
+    "captainPlayerId": 71
   },
   {
     "id": "vinayak-riders",
@@ -21,7 +23,8 @@
     "shortName": "VR",
     "color": "#faad14",
     "totalPurse": 5000,
-    "sponsor": "Vinayak Cycle World"
+    "sponsor": "Vinayak Cycle World",
+    "captainPlayerId": 21
   },
   {
     "id": "durga-dhurandars",
@@ -29,7 +32,8 @@
     "shortName": "HDD",
     "color": "#722ed1",
     "totalPurse": 5000,
-    "sponsor": "Hotel Durga"
+    "sponsor": "Hotel Durga",
+    "captainPlayerId": 30
   },
   {
     "id": "township-homes-warrior",
@@ -37,7 +41,8 @@
     "shortName": "THW",
     "color": "#fa8c16",
     "totalPurse": 5000,
-    "sponsor": "Township Homes"
+    "sponsor": "Township Homes",
+    "captainPlayerId": null
   },
   {
     "id": "sp-super-warriors",
@@ -45,7 +50,8 @@
     "shortName": "SSW",
     "color": "#52c41a",
     "totalPurse": 5000,
-    "sponsor": "S.P Stationers"
+    "sponsor": "S.P Stationers",
+    "captainPlayerId": 36
   },
   {
     "id": "inter-warriors",
@@ -53,6 +59,7 @@
     "shortName": "IW",
     "color": "#13c2c2",
     "totalPurse": 5000,
-    "sponsor": "Inter Furniture & Interior"
+    "sponsor": "Inter Furniture & Interior",
+    "captainPlayerId": 6
   }
 ]

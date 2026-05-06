@@ -4,7 +4,7 @@ import initialTeams from '../data/teams.json';
 import initialSponsors from '../data/sponsors.json';
 
 const STORAGE_KEY = 'apl-league-data';
-const DATA_VERSION = 36;
+const DATA_VERSION = 39;
 
 const LeagueContext = createContext(null);
 
@@ -165,12 +165,34 @@ export function LeagueProvider({ children }) {
     return map;
   }, [data.players, data.teams]);
 
+  // Captaincy lookups derived from teams.json (`captainPlayerId`).
+  // - captainPlayerIds: Set for O(1) "is this player a captain?" checks.
+  // - captainByTeamName: Map from team name -> captain player object (or null
+  //   if the team has no captain set, or the id doesn't resolve to a player).
+  const { captainPlayerIds, captainByTeamName } = useMemo(() => {
+    const ids = new Set();
+    const byTeam = {};
+    for (const t of data.teams) {
+      const cid = t.captainPlayerId;
+      if (cid == null) {
+        byTeam[t.name] = null;
+        continue;
+      }
+      const captain = data.players.find((p) => p.id === cid) ?? null;
+      byTeam[t.name] = captain;
+      if (captain) ids.add(captain.id);
+    }
+    return { captainPlayerIds: ids, captainByTeamName: byTeam };
+  }, [data.players, data.teams]);
+
   const value = useMemo(
     () => ({
       players: data.players,
       teams: data.teams,
       sponsors: data.sponsors,
       teamStats,
+      captainPlayerIds,
+      captainByTeamName,
       updatePlayer,
       addPlayer,
       deletePlayer,
@@ -184,6 +206,8 @@ export function LeagueProvider({ children }) {
     [
       data,
       teamStats,
+      captainPlayerIds,
+      captainByTeamName,
       updatePlayer,
       addPlayer,
       deletePlayer,

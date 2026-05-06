@@ -28,7 +28,7 @@ const ROLE_COLORS = {
 };
 
 export default function PlayerTable({ teamFilter = null, onClearTeamFilter }) {
-  const { players, teams } = useLeague();
+  const { players, teams, captainPlayerIds } = useLeague();
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
   const [roleFilter, setRoleFilter] = useState(null);
@@ -69,12 +69,39 @@ export default function PlayerTable({ teamFilter = null, onClearTeamFilter }) {
       sorter: (a, b) => a.name.localeCompare(b.name),
       render: (name, record) => (
         <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
-          <Avatar
-            src={record.photo}
-            icon={<UserOutlined />}
-            size={64}
-            style={{ flexShrink: 0 }}
-          />
+          <div style={{ position: 'relative', flexShrink: 0 }}>
+            <Avatar
+              src={record.photo}
+              icon={<UserOutlined />}
+              size={64}
+            />
+            {captainPlayerIds.has(record.id) && (
+              <div
+                style={{
+                  position: 'absolute',
+                  top: -4,
+                  right: -4,
+                  width: 22,
+                  height: 22,
+                  borderRadius: '50%',
+                  background: '#faad14',
+                  color: '#fff',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: 12,
+                  fontWeight: 700,
+                  lineHeight: 1,
+                  border: '2px solid #fff',
+                  boxShadow: '0 1px 3px rgba(0,0,0,0.25)',
+                }}
+                title="Captain"
+                aria-label="Team captain"
+              >
+                C
+              </div>
+            )}
+          </div>
           <div>
             <div style={{ fontWeight: 600, fontSize: 20, lineHeight: 1.2 }}>{name}</div>
             <div className="mobile-player-sub" style={{ display: 'none', marginTop: 4, fontSize: 14, color: '#8c8c8c' }}>
