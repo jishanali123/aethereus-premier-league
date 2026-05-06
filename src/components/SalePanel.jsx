@@ -18,8 +18,10 @@ import {
   EditOutlined,
   CloseCircleOutlined,
   DollarOutlined,
+  LockOutlined,
 } from '@ant-design/icons';
 import { useLeague, formatPrice } from '../context/LeagueContext';
+import { AUCTION_LOCKED } from '../config';
 
 const { Text } = Typography;
 
@@ -44,9 +46,10 @@ export default function SalePanel({ player }) {
     setPrice(player.sold ? player.price : player.basePrice);
   }, [player, editing]);
 
-  // Show the form whenever a player is unsold; otherwise show the read-only
-  // sale summary unless the operator has clicked "Edit Sale".
-  const showForm = !player.sold || editing;
+  // When the auction is locked the form is never shown.
+  // Otherwise show the form for unsold players, or when the operator has
+  // explicitly clicked "Edit Sale" on a sold player.
+  const showForm = !AUCTION_LOCKED && (!player.sold || editing);
 
   const teamOptions = useMemo(() => {
     return teams.map((t) => {
@@ -88,6 +91,58 @@ export default function SalePanel({ player }) {
     updatePlayer(player.id, { sold: false, price: 0, team: null });
     setEditing(false);
   };
+
+  // ---- Locked + unsold: read-only summary, no sale data to show ----
+  if (AUCTION_LOCKED && !player.sold) {
+    return (
+      <>
+        <Row gutter={[32, 28]}>
+          <Col xs={12} sm={8}>
+            <Text
+              type="secondary"
+              style={{
+                fontSize: 14,
+                display: 'block',
+                marginBottom: 6,
+                letterSpacing: 0.5,
+              }}
+            >
+              STATUS
+            </Text>
+            <Badge
+              status="default"
+              text={
+                <Text strong style={{ color: '#8c8c8c', fontSize: 18 }}>
+                  Unsold
+                </Text>
+              }
+            />
+          </Col>
+          <Col xs={12} sm={8}>
+            <Text
+              type="secondary"
+              style={{
+                fontSize: 14,
+                display: 'block',
+                marginBottom: 6,
+                letterSpacing: 0.5,
+              }}
+            >
+              BASE PRICE
+            </Text>
+            <Text style={{ fontSize: 22 }}>
+              {formatPrice(player.basePrice)}
+            </Text>
+          </Col>
+        </Row>
+        <Divider style={{ margin: '24px 0 12px' }} />
+        <Text type="secondary" style={{ fontSize: 14 }}>
+          <LockOutlined style={{ marginRight: 6 }} />
+          Auction closed — sale details are locked.
+        </Text>
+      </>
+    );
+  }
 
   // ---- Sold display (when not editing) ----
   if (!showForm) {
@@ -176,28 +231,40 @@ export default function SalePanel({ player }) {
             )}
           </Col>
         </Row>
-        <Divider style={{ margin: '24px 0 16px' }} />
-        <Space wrap>
-          <Button
-            type="primary"
-            icon={<EditOutlined />}
-            onClick={() => setEditing(true)}
-            size="large"
-          >
-            Edit Sale
-          </Button>
-          <Popconfirm
-            title="Mark this player as unsold?"
-            description="The player will go back into the available pool."
-            okText="Yes, mark unsold"
-            cancelText="Cancel"
-            onConfirm={handleUnsold}
-          >
-            <Button danger icon={<CloseCircleOutlined />} size="large">
-              Mark Unsold
-            </Button>
-          </Popconfirm>
-        </Space>
+        {AUCTION_LOCKED ? (
+          <>
+            <Divider style={{ margin: '24px 0 12px' }} />
+            <Text type="secondary" style={{ fontSize: 14 }}>
+              <LockOutlined style={{ marginRight: 6 }} />
+              Auction closed — sale details are locked.
+            </Text>
+          </>
+        ) : (
+          <>
+            <Divider style={{ margin: '24px 0 16px' }} />
+            <Space wrap>
+              <Button
+                type="primary"
+                icon={<EditOutlined />}
+                onClick={() => setEditing(true)}
+                size="large"
+              >
+                Edit Sale
+              </Button>
+              <Popconfirm
+                title="Mark this player as unsold?"
+                description="The player will go back into the available pool."
+                okText="Yes, mark unsold"
+                cancelText="Cancel"
+                onConfirm={handleUnsold}
+              >
+                <Button danger icon={<CloseCircleOutlined />} size="large">
+                  Mark Unsold
+                </Button>
+              </Popconfirm>
+            </Space>
+          </>
+        )}
       </>
     );
   }

@@ -11,6 +11,7 @@ import SuperStarsSection from '../components/SuperStarsSection';
 import RatingSection from '../components/RatingSection';
 import TeamPurseStrip from '../components/TeamPurseStrip';
 import { useLeague } from '../context/LeagueContext';
+import { AUCTION_LOCKED } from '../config';
 
 const TOP_BATTERS_FILTER = (p) => (p.battingRating ?? 0) >= 4;
 const TOP_BOWLERS_FILTER = (p) => (p.bowlingRating ?? 0) >= 4;
@@ -121,36 +122,40 @@ export default function PlayersPage() {
           </Text>
         </div>
 
-        <div
-          style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'flex-end',
-            gap: 6,
-          }}
-        >
-          <Tooltip title="Download a JSON snapshot of every player's current sale status, team and price.">
-            <Button
-              type="primary"
-              size="large"
-              icon={<DownloadOutlined />}
-              onClick={handleExport}
-              style={{ height: 48, fontWeight: 600 }}
-            >
-              Export Auction Results
-            </Button>
-          </Tooltip>
-          <Text
-            type="secondary"
-            style={{ fontSize: 13 }}
-            title={lastExportIso ? new Date(lastExportIso).toLocaleString() : ''}
+        {!AUCTION_LOCKED && (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'flex-end',
+              gap: 6,
+            }}
           >
-            <ClockCircleOutlined style={{ marginRight: 6 }} />
-            {lastExportLabel
-              ? `Last exported ${lastExportLabel}`
-              : 'No backup exported yet — hit Export to save a copy'}
-          </Text>
-        </div>
+            <Tooltip title="Download a JSON snapshot of every player's current sale status, team and price.">
+              <Button
+                type="primary"
+                size="large"
+                icon={<DownloadOutlined />}
+                onClick={handleExport}
+                style={{ height: 48, fontWeight: 600 }}
+              >
+                Export Auction Results
+              </Button>
+            </Tooltip>
+            <Text
+              type="secondary"
+              style={{ fontSize: 13 }}
+              title={
+                lastExportIso ? new Date(lastExportIso).toLocaleString() : ''
+              }
+            >
+              <ClockCircleOutlined style={{ marginRight: 6 }} />
+              {lastExportLabel
+                ? `Last exported ${lastExportLabel}`
+                : 'No backup exported yet — hit Export to save a copy'}
+            </Text>
+          </div>
+        )}
       </div>
 
       <div
