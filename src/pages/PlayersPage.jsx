@@ -158,33 +158,18 @@ export default function PlayersPage() {
         )}
       </div>
 
-      <div
-        style={{
-          position: 'sticky',
-          top: 64,
-          zIndex: 20,
-          background: '#f5f5f5',
-          paddingTop: 12,
-          paddingBottom: 16,
-          marginBottom: 16,
-          marginLeft: -32,
-          marginRight: -32,
-          paddingLeft: 32,
-          paddingRight: 32,
-          borderBottom: '1px solid #e8e8e8',
-          boxShadow: '0 4px 12px -8px rgba(0,0,0,0.15)',
-        }}
-      >
+      <div style={{ marginBottom: 24 }}>
         <TeamPurseStrip
           selectedTeam={teamFilter}
           onTeamClick={setTeamFilter}
         />
       </div>
-      <SuperStarsSection />
       <PlayerTable
         teamFilter={teamFilter}
         onClearTeamFilter={() => setTeamFilter(null)}
       />
+
+      <SuperStarsSection />
 
       <RatingSection
         title="Top Batters"
@@ -196,6 +181,7 @@ export default function PlayersPage() {
         primaryStat="battingRating"
         filter={TOP_BATTERS_FILTER}
         storageKey="top-batters"
+        defaultCollapsed
       />
 
       <RatingSection
@@ -206,6 +192,7 @@ export default function PlayersPage() {
         primaryStat="bowlingRating"
         filter={TOP_BOWLERS_FILTER}
         storageKey="top-bowlers"
+        defaultCollapsed
       />
     </div>
   );

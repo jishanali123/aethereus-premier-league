@@ -41,7 +41,7 @@ function MiniRating({ label, value }) {
 export default function SuperStarsSection() {
   const { players } = useLeague();
   const navigate = useNavigate();
-  const [collapsed, toggle] = useCollapsibleState('super-stars', false);
+  const [collapsed, toggle] = useCollapsibleState('super-stars', true);
 
   const superStars = useMemo(
     () =>

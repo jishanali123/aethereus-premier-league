@@ -1,10 +1,17 @@
-import { Row, Col, Card, Typography, Progress, Tooltip } from 'antd';
+import { Row, Col, Card, Typography, Progress, Tooltip, Tag } from 'antd';
+import {
+  TeamOutlined,
+  DownOutlined,
+  RightOutlined,
+} from '@ant-design/icons';
 import { useLeague, formatPrice } from '../context/LeagueContext';
+import useCollapsibleState from '../hooks/useCollapsibleState';
 
-const { Text } = Typography;
+const { Text, Title } = Typography;
 
 export default function TeamPurseStrip({ selectedTeam = null, onTeamClick }) {
   const { teams, teamStats } = useLeague();
+  const [collapsed, toggle] = useCollapsibleState('team-purses', true);
 
   const handleClick = (teamName) => {
     if (!onTeamClick) return;
@@ -12,9 +19,59 @@ export default function TeamPurseStrip({ selectedTeam = null, onTeamClick }) {
     onTeamClick(selectedTeam === teamName ? null : teamName);
   };
 
+  const ChevronIcon = collapsed ? RightOutlined : DownOutlined;
+
   return (
-    <Row gutter={[16, 16]} style={{ marginBottom: 0 }}>
-      {teams.map((t) => {
+    <div>
+      <div
+        role="button"
+        tabIndex={0}
+        onClick={toggle}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            toggle();
+          }
+        }}
+        aria-expanded={!collapsed}
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: 12,
+          marginBottom: collapsed ? 0 : 16,
+          cursor: 'pointer',
+          userSelect: 'none',
+          flexWrap: 'wrap',
+        }}
+      >
+        <ChevronIcon style={{ fontSize: 18, color: '#1677ff' }} />
+        <TeamOutlined style={{ fontSize: 26, color: '#1677ff' }} />
+        <Title level={2} style={{ margin: 0, fontSize: 24 }}>
+          Team Purses
+        </Title>
+        <Tag
+          style={{
+            fontSize: 13,
+            padding: '2px 10px',
+            borderRadius: 10,
+            fontWeight: 600,
+            background: '#1677ff15',
+            color: '#1677ff',
+            borderColor: '#1677ff55',
+          }}
+        >
+          {teams.length} teams
+        </Tag>
+        {selectedTeam && (
+          <Text type="secondary" style={{ fontSize: 13 }}>
+            Filtering players by <strong>{selectedTeam}</strong>
+          </Text>
+        )}
+      </div>
+
+      {!collapsed && (
+      <Row gutter={[16, 16]} style={{ marginBottom: 0 }}>
+        {teams.map((t) => {
         const stats = teamStats[t.name];
         const spent = stats?.spent ?? 0;
         const remaining = stats?.remaining ?? t.totalPurse;
@@ -94,6 +151,8 @@ export default function TeamPurseStrip({ selectedTeam = null, onTeamClick }) {
           </Col>
         );
       })}
-    </Row>
+      </Row>
+      )}
+    </div>
   );
 }
