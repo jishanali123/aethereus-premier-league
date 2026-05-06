@@ -5,7 +5,6 @@ import {
   TrophyOutlined,
   ThunderboltOutlined,
   GiftOutlined,
-  PlayCircleOutlined,
   CrownOutlined,
   StarOutlined,
 } from '@ant-design/icons';
@@ -63,22 +62,6 @@ export default function LandingPage() {
               marginBottom: 20,
             }}
           >
-            <Button
-              type="primary"
-              size="large"
-              icon={<PlayCircleOutlined />}
-              disabled
-              className="coming-soon-btn"
-              style={{
-                height: 44,
-                paddingInline: 28,
-                fontWeight: 600,
-                fontSize: 15,
-                borderRadius: 22,
-              }}
-            >
-              Auction — Coming Soon
-            </Button>
             <Button
               size="large"
               icon={<TeamOutlined />}

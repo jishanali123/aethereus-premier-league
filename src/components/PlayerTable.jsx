@@ -143,7 +143,12 @@ export default function PlayerTable({ teamFilter = null, onClearTeamFilter }) {
       title: 'Status',
       dataIndex: 'sold',
       key: 'sold',
-      sorter: (a, b) => Number(a.sold) - Number(b.sold),
+      sorter: (a, b) => {
+        const aTeam = a.team || '';
+        const bTeam = b.team || '';
+        if (aTeam !== bTeam) return aTeam.localeCompare(bTeam);
+        return (b.price ?? 0) - (a.price ?? 0);
+      },
       render: (_, record) => {
         if (!record.sold) {
           return (
