@@ -1,12 +1,22 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Table, Input, Select, Tag, Avatar, Space, Badge, Rate } from 'antd';
+import {
+  Table,
+  Input,
+  Select,
+  Tag,
+  Avatar,
+  Badge,
+  Rate,
+  Segmented,
+} from 'antd';
 import {
   SearchOutlined,
   UserOutlined,
   TrophyOutlined,
+  CloseOutlined,
 } from '@ant-design/icons';
-import { useLeague } from '../context/LeagueContext';
+import { useLeague, formatPrice } from '../context/LeagueContext';
 
 const { Search } = Input;
 
@@ -17,13 +27,20 @@ const ROLE_COLORS = {
   'Wicket-Keeper': 'green',
 };
 
-export default function PlayerTable() {
-  const { players } = useLeague();
+export default function PlayerTable({ teamFilter = null, onClearTeamFilter }) {
+  const { players, teams } = useLeague();
   const navigate = useNavigate();
   const [searchText, setSearchText] = useState('');
   const [roleFilter, setRoleFilter] = useState(null);
+  const [statusFilter, setStatusFilter] = useState('all'); // 'all' | 'available' | 'sold'
 
   const roles = [...new Set(players.map((p) => p.role))];
+
+  const teamColorByName = useMemo(() => {
+    const m = {};
+    for (const t of teams) m[t.name] = t.color;
+    return m;
+  }, [teams]);
 
   const filteredPlayers = useMemo(() => {
     return players.filter((p) => {
@@ -32,9 +49,17 @@ export default function PlayerTable() {
         p.name.toLowerCase().includes(searchText.toLowerCase()) ||
         p.role.toLowerCase().includes(searchText.toLowerCase());
       const matchesRole = !roleFilter || p.role === roleFilter;
-      return matchesSearch && matchesRole;
+      const matchesStatus =
+        statusFilter === 'all' ||
+        (statusFilter === 'available' && !p.sold) ||
+        (statusFilter === 'sold' && p.sold);
+      const matchesTeam = !teamFilter || p.team === teamFilter;
+      return matchesSearch && matchesRole && matchesStatus && matchesTeam;
     });
-  }, [players, searchText, roleFilter]);
+  }, [players, searchText, roleFilter, statusFilter, teamFilter]);
+
+  const availableCount = players.filter((p) => !p.sold).length;
+  const soldCount = players.length - availableCount;
 
   const columns = [
     {
@@ -118,16 +143,51 @@ export default function PlayerTable() {
       title: 'Status',
       dataIndex: 'sold',
       key: 'sold',
-      render: (sold) => (
-        <Badge
-          status={sold ? 'success' : 'warning'}
-          text={
-            <span style={{ fontSize: 15, fontWeight: 500 }}>
-              {sold ? 'Sold' : 'Available'}
+      sorter: (a, b) => Number(a.sold) - Number(b.sold),
+      render: (_, record) => {
+        if (!record.sold) {
+          return (
+            <Badge
+              status="warning"
+              text={
+                <span style={{ fontSize: 15, fontWeight: 500 }}>
+                  Available
+                </span>
+              }
+            />
+          );
+        }
+        return (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
+            {record.team ? (
+              <Tag
+                color={teamColorByName[record.team] || 'green'}
+                style={{
+                  fontSize: 13,
+                  padding: '2px 10px',
+                  borderRadius: 10,
+                  fontWeight: 600,
+                  margin: 0,
+                  width: 'fit-content',
+                }}
+              >
+                {record.team}
+              </Tag>
+            ) : (
+              <Badge status="success" text="Sold" />
+            )}
+            <span
+              style={{
+                fontSize: 14,
+                fontWeight: 600,
+                color: '#52c41a',
+              }}
+            >
+              {formatPrice(record.price)}
             </span>
-          }
-        />
-      ),
+          </div>
+        );
+      },
       responsive: ['sm'],
     },
   ];
@@ -140,6 +200,7 @@ export default function PlayerTable() {
           flexWrap: 'wrap',
           gap: 16,
           marginBottom: 24,
+          alignItems: 'center',
         }}
       >
         <Search
@@ -147,27 +208,56 @@ export default function PlayerTable() {
           prefix={<SearchOutlined />}
           allowClear
           onChange={(e) => setSearchText(e.target.value)}
-          style={{ flex: '1 1 320px', maxWidth: 480, fontSize: 16 }}
+          style={{ flex: '1 1 320px', maxWidth: 420, fontSize: 16 }}
           size="large"
         />
         <Select
           placeholder="All Roles"
           allowClear
           onChange={(val) => setRoleFilter(val)}
-          style={{ flex: '0 1 220px' }}
+          style={{ flex: '0 1 200px' }}
           size="large"
           options={roles.map((r) => ({ value: r, label: r }))}
         />
+        <Segmented
+          size="large"
+          value={statusFilter}
+          onChange={setStatusFilter}
+          options={[
+            { value: 'all', label: `All (${players.length})` },
+            { value: 'available', label: `Available (${availableCount})` },
+            { value: 'sold', label: `Sold (${soldCount})` },
+          ]}
+        />
+        {teamFilter && (
+          <Tag
+            color={teamColorByName[teamFilter] || 'blue'}
+            closable
+            closeIcon={<CloseOutlined />}
+            onClose={(e) => {
+              e.preventDefault();
+              onClearTeamFilter?.();
+            }}
+            style={{
+              fontSize: 14,
+              padding: '6px 12px',
+              borderRadius: 10,
+              fontWeight: 600,
+              margin: 0,
+            }}
+          >
+            Team: {teamFilter}
+          </Tag>
+        )}
         <div style={{ flex: 1, minWidth: 0 }} />
         <div
           style={{
-            alignSelf: 'center',
             color: '#8c8c8c',
             fontSize: 16,
             fontWeight: 500,
           }}
         >
-          {filteredPlayers.length} players
+          {filteredPlayers.length} shown
         </div>
       </div>
 

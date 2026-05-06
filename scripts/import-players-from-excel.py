@@ -6,10 +6,14 @@ Build src/data/players.json from the auction registration Excel sheet.
 - Matches each player to a local photo in `public/player-photos/` by checking
   the filename suffix " - <Player Name>.<ext>" (case-insensitive)
 - Derives a default role from the rating mix (user can edit later)
-- Writes `src/data/players.json` with auction-ready fields
+- Always writes `src/data/players.master.json` (frozen pre-auction baseline)
+- Writes `src/data/players.json` (the live file the app uses) UNLESS the live
+  file already has sold players — in which case the script refuses to
+  overwrite without `--force`, protecting in-progress auction state.
 - Drive photo URL is preserved on `photoDriveUrl` for later processing
 """
 
+import argparse
 import json
 import os
 import re
@@ -22,6 +26,7 @@ ROOT = Path(__file__).resolve().parent.parent
 EXCEL_PATH = ROOT / "public" / "Auction Registration Form (Responses).xlsx"
 PHOTO_DIR = ROOT / "public" / "player-photos"
 OUT_PATH = ROOT / "src" / "data" / "players.json"
+MASTER_PATH = ROOT / "src" / "data" / "players.master.json"
 
 DEFAULT_BASE_PRICE = 100
 
@@ -128,7 +133,26 @@ def to_int_rating(value) -> int:
         return 0
 
 
+def count_sold_in_existing(path: Path) -> int:
+    if not path.exists():
+        return 0
+    try:
+        with path.open(encoding="utf-8") as f:
+            data = json.load(f)
+        return sum(1 for p in data if isinstance(p, dict) and p.get("sold"))
+    except Exception:
+        return 0
+
+
 def main() -> None:
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--force",
+        action="store_true",
+        help="Overwrite players.json even if it has sold players (auction in progress).",
+    )
+    args = parser.parse_args()
+
     if not EXCEL_PATH.exists():
         raise SystemExit(f"Excel not found: {EXCEL_PATH}")
 
@@ -210,13 +234,34 @@ def main() -> None:
         })
 
     OUT_PATH.parent.mkdir(parents=True, exist_ok=True)
-    with OUT_PATH.open("w", encoding="utf-8") as f:
+
+    # 1) Always write the master (frozen pre-auction baseline).
+    with MASTER_PATH.open("w", encoding="utf-8") as f:
         json.dump(players, f, indent=2, ensure_ascii=False)
         f.write("\n")
 
+    # 2) Write the live file unless it has auction state already.
+    sold_in_existing = count_sold_in_existing(OUT_PATH)
+    skipped_live = False
+    if sold_in_existing > 0 and not args.force:
+        skipped_live = True
+    else:
+        with OUT_PATH.open("w", encoding="utf-8") as f:
+            json.dump(players, f, indent=2, ensure_ascii=False)
+            f.write("\n")
+
     unmatched = [p["name"] for p in players if not p["photo"]]
     cricheroes_count = sum(1 for p in players if p["cricheroesUrl"])
-    print(f"Wrote {len(players)} players -> {OUT_PATH.relative_to(ROOT)}")
+    print(f"Wrote {len(players)} players -> {MASTER_PATH.relative_to(ROOT)} (master)")
+    if skipped_live:
+        print(
+            f"SKIPPED {OUT_PATH.relative_to(ROOT)} — it already has "
+            f"{sold_in_existing} sold players (auction in progress).\n"
+            f"  Re-run with --force to overwrite, OR copy "
+            f"{MASTER_PATH.name} over {OUT_PATH.name} manually if you want a reset."
+        )
+    else:
+        print(f"Wrote {len(players)} players -> {OUT_PATH.relative_to(ROOT)} (live)")
     print(f"Photos matched: {matched}/{len(players)}")
     print(f"CricHeroes links: {cricheroes_count}/{len(players)}")
     if unmatched:

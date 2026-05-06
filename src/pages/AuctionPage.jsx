@@ -10,7 +10,6 @@ import {
   Tag,
   Badge,
   InputNumber,
-  Popconfirm,
   Alert,
   Space,
   Progress,
@@ -22,7 +21,6 @@ import {
   DollarOutlined,
   CheckCircleOutlined,
   CloseCircleOutlined,
-  UndoOutlined,
   ThunderboltOutlined,
   TeamOutlined,
   SwapRightOutlined,
@@ -39,8 +37,7 @@ const ROLE_COLORS = {
 };
 
 export default function AuctionPage() {
-  const { players, teams, teamStats, updatePlayer, resetAuction } =
-    useLeague();
+  const { players, teams, teamStats, updatePlayer } = useLeague();
 
   const [currentPlayerId, setCurrentPlayerId] = useState(null);
   const [bidAmount, setBidAmount] = useState(0);
@@ -133,15 +130,13 @@ export default function AuctionPage() {
             {soldPlayers.length} sold • {unsoldPlayers.length} remaining
           </Text>
         </div>
-        <Popconfirm
-          title="Reset entire auction?"
-          description="All players will be marked unsold and unassigned."
-          onConfirm={resetAuction}
-        >
-          <Button icon={<UndoOutlined />} danger>
-            Reset Auction
-          </Button>
-        </Popconfirm>
+        <Alert
+          type="info"
+          showIcon
+          message="To run the auction, use the Players page"
+          description="Open any player's profile and use the sale form there to mark them sold. Use the Export button on the Players page for backups."
+          style={{ flex: '1 1 320px', maxWidth: 520 }}
+        />
       </div>
 
       {/* Team Purse Overview */}
