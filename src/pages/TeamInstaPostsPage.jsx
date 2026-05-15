@@ -1,7 +1,7 @@
 import { useRef, useState, useCallback } from 'react';
 import { Typography, Button, Space, message } from 'antd';
 import { DownloadOutlined, UserOutlined } from '@ant-design/icons';
-import { toPng } from 'html-to-image';
+import { toJpeg } from 'html-to-image';
 import { useLeague } from '../context/LeagueContext';
 
 const { Title, Text } = Typography;
@@ -84,16 +84,17 @@ function TeamPostCard({ team, sponsor, captain, roster }) {
     if (!ref.current) return;
     try {
       setDownloading(true);
-      const dataUrl = await toPng(ref.current, {
+      const dataUrl = await toJpeg(ref.current, {
         cacheBust: true,
-        pixelRatio: 2,
+        pixelRatio: 3,
+        quality: 0.98,
         width: POST_W,
         height: POST_H,
         backgroundColor: NAVY_TOP,
       });
       const link = document.createElement('a');
       const slug = team.id || team.name.replace(/\s+/g, '-').toLowerCase();
-      link.download = `apl-team-${slug}.png`;
+      link.download = `apl-team-${slug}.jpg`;
       link.href = dataUrl;
       link.click();
     } catch (err) {

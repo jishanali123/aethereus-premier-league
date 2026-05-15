@@ -60,10 +60,11 @@ const SCHEDULE = [
       { time: '09:00 AM', homeId: 'durga-dhurandars', awayId: 'inter-warriors' },
       { time: '10:30 AM', homeId: 'sp-super-warriors', awayId: 'global-hammerzz' },
       { time: '12:00 PM', homeId: 'vinayak-riders', awayId: 'township-homes-warrior' },
+      { time: '01:00 PM', homeId: 'sp-super-warriors', awayId: 'inter-warriors' },
       { time: '05:30 PM', homeId: 'durga-dhurandars', awayId: 'sp-super-warriors' },
       { time: '07:00 PM', homeId: 'vinayak-riders', awayId: 'global-hammerzz' },
       { time: '08:30 PM', homeId: 'salunkhe-strikers', awayId: 'township-homes-warrior' },
-      { time: '10:00 PM', homeId: 'sp-super-warriors', awayId: 'inter-warriors' },
+      { time: '10:00 PM', homeId: 'salunkhe-strikers', awayId: 'inter-warriors' },
     ],
   },
   {
@@ -71,10 +72,9 @@ const SCHEDULE = [
     label: 'DAY 2',
     date: 'Sunday, 17 May',
     matches: [
-      { time: '09:00 AM', homeId: 'salunkhe-strikers', awayId: 'inter-warriors' },
-      { time: '10:30 AM', homeId: 'durga-dhurandars', awayId: 'global-hammerzz' },
-      { time: '12:00 PM', homeId: 'vinayak-riders', awayId: 'salunkhe-strikers' },
-      { time: '01:30 PM', homeId: 'township-homes-warrior', awayId: 'first-qualifier' },
+      { time: '09:00 AM', homeId: 'durga-dhurandars', awayId: 'global-hammerzz' },
+      { time: '10:30 AM', homeId: 'vinayak-riders', awayId: 'salunkhe-strikers' },
+      { time: '12:00 PM', homeId: 'township-homes-warrior', awayId: 'first-qualifier' },
     ],
   },
 ];
