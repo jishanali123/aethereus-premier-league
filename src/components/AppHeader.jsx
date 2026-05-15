@@ -10,6 +10,7 @@ import {
   MenuOutlined,
   InstagramOutlined,
   CalendarOutlined,
+  CrownOutlined,
 } from '@ant-design/icons';
 
 const { Header } = Layout;
@@ -20,6 +21,7 @@ const NAV_ITEMS = [
   { key: '/teams', label: 'Teams', icon: <TrophyOutlined /> },
   { key: '/insta/teams', label: 'Insta Cards', icon: <InstagramOutlined /> },
   { key: '/insta/fixtures', label: 'Fixtures Card', icon: <CalendarOutlined /> },
+  { key: '/insta/knockouts', label: 'Knockouts Card', icon: <CrownOutlined /> },
   { key: '/auction', label: 'Auction', icon: <ThunderboltOutlined />, disabled: true },
   { key: '/sponsors', label: 'Sponsors', icon: <GiftOutlined /> },
 ];

@@ -27,6 +27,7 @@ const BADGE_LABEL = {
   'township-homes-warrior': 'TW',
   'sp-super-warriors': 'SS',
   'inter-warriors': 'IW',
+  'first-qualifier': 'Q1',
 };
 
 // Friendlier short name used on the row label (kept simple — the design relies
@@ -34,7 +35,17 @@ const BADGE_LABEL = {
 const ROW_NAME = {
   'durga-dhurandars': 'Hotel Durga Dhurandhars',
   'salunkhe-strikers': 'Dr Salunkhe Pathlab Titans',
-  'township-homes-warrior': 'Township Warriors',
+};
+
+// Virtual TBD slots that look like teams to the renderer. Used for knockout
+// placeholders inside the league fixtures card (e.g. "First Qualifier").
+const TBD_TEAMS = {
+  'first-qualifier': {
+    id: 'first-qualifier',
+    name: 'First Qualifier',
+    shortName: 'Q1',
+    color: '#a07c2c',
+  },
 };
 
 // Schedule mirrors the team match fixtures the user provided. Each entry is
@@ -63,6 +74,7 @@ const SCHEDULE = [
       { time: '09:00 AM', homeId: 'salunkhe-strikers', awayId: 'inter-warriors' },
       { time: '10:30 AM', homeId: 'durga-dhurandars', awayId: 'global-hammerzz' },
       { time: '12:00 PM', homeId: 'vinayak-riders', awayId: 'salunkhe-strikers' },
+      { time: '01:30 PM', homeId: 'township-homes-warrior', awayId: 'first-qualifier' },
     ],
   },
 ];
@@ -105,12 +117,12 @@ function MatchRow({ match, teamsById }) {
   const awayName = ROW_NAME[away.id] || away.name;
 
   return (
-    <div style={{ position: 'relative', marginTop: 24 }}>
+    <div style={{ position: 'relative', marginTop: 18 }}>
       {/* Time chip (centered, floats above the row) */}
       <div
         style={{
           position: 'absolute',
-          top: -16,
+          top: -14,
           left: '50%',
           transform: 'translateX(-50%)',
           background: `linear-gradient(180deg, ${GOLD_SOFT}, ${GOLD})`,
@@ -255,7 +267,7 @@ export default function MatchFixturesInstaPostPage() {
   const [downloading, setDownloading] = useState(false);
 
   const teamsById = useMemo(() => {
-    const map = {};
+    const map = { ...TBD_TEAMS };
     for (const t of teams) map[t.id] = t;
     return map;
   }, [teams]);
@@ -606,10 +618,10 @@ export default function MatchFixturesInstaPostPage() {
           <div
             style={{
               position: 'relative',
-              padding: '20px 64px 0 64px',
+              padding: '16px 64px 0 64px',
               display: 'flex',
               flexDirection: 'column',
-              gap: 16,
+              gap: 12,
               flex: 1,
               minHeight: 0,
             }}
@@ -617,7 +629,7 @@ export default function MatchFixturesInstaPostPage() {
             {SCHEDULE.map((day) => (
               <div key={day.day}>
                 <DayHeader label={day.label} date={day.date} />
-                <div style={{ marginTop: 14 }}>
+                <div style={{ marginTop: 10 }}>
                   {day.matches.map((m, idx) => (
                     <MatchRow
                       key={`${day.day}-${idx}`}

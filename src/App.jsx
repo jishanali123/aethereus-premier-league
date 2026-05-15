@@ -8,6 +8,7 @@ import PlayerDetailPage from './pages/PlayerDetailPage';
 import TeamsPage from './pages/TeamsPage';
 import TeamInstaPostsPage from './pages/TeamInstaPostsPage';
 import MatchFixturesInstaPostPage from './pages/MatchFixturesInstaPostPage';
+import KnockoutsInstaPostPage from './pages/KnockoutsInstaPostPage';
 import AuctionPage from './pages/AuctionPage';
 import SponsorsPage from './pages/SponsorsPage';
 
@@ -39,6 +40,10 @@ export default function App() {
                 <Route
                   path="/insta/fixtures"
                   element={<MatchFixturesInstaPostPage />}
+                />
+                <Route
+                  path="/insta/knockouts"
+                  element={<KnockoutsInstaPostPage />}
                 />
                 <Route path="/auction" element={<AuctionPage />} />
                 <Route path="/sponsors" element={<SponsorsPage />} />
