@@ -419,7 +419,7 @@ function TeamPostCard({ team, sponsor, captain, roster }) {
               >
                 <PlayerAvatar
                   player={captain}
-                  size={120}
+                  size={150}
                   team={team}
                   isCaptain
                 />
@@ -428,7 +428,7 @@ function TeamPostCard({ team, sponsor, captain, roster }) {
                     style={{
                       fontFamily: "'Cinzel', serif",
                       fontWeight: 700,
-                      fontSize: 26,
+                      fontSize: 32,
                       color: '#fff',
                       letterSpacing: 1,
                       lineHeight: 1.1,
@@ -438,13 +438,13 @@ function TeamPostCard({ team, sponsor, captain, roster }) {
                   </div>
                   <div
                     style={{
-                      marginTop: 8,
+                      marginTop: 10,
                       display: 'inline-block',
-                      padding: '4px 12px',
+                      padding: '5px 14px',
                       borderRadius: 999,
                       background: ROLE_BG[captain.role] || '#374151',
                       color: '#fff',
-                      fontSize: 12,
+                      fontSize: 14,
                       fontWeight: 600,
                       letterSpacing: 0.5,
                     }}
@@ -453,9 +453,9 @@ function TeamPostCard({ team, sponsor, captain, roster }) {
                   </div>
                   <div
                     style={{
-                      marginTop: 6,
+                      marginTop: 8,
                       color: GOLD_SOFT,
-                      fontSize: 13,
+                      fontSize: 18,
                       fontFamily: "'Pinyon Script', cursive",
                       fontWeight: 400,
                       fontSizeAdjust: 0.5,
@@ -476,7 +476,7 @@ function TeamPostCard({ team, sponsor, captain, roster }) {
                 marginTop: 18,
                 display: 'grid',
                 gridTemplateColumns: `repeat(${cols}, 1fr)`,
-                gap: 14,
+                gap: 16,
               }}
             >
               {others.map((p) => (
@@ -489,14 +489,14 @@ function TeamPostCard({ team, sponsor, captain, roster }) {
                     background: 'rgba(255,255,255,0.04)',
                     border: `1px solid ${GOLD}33`,
                     borderRadius: 12,
-                    padding: '10px 6px 12px 6px',
+                    padding: '14px 8px 16px 8px',
                   }}
                 >
-                  <PlayerAvatar player={p} size={cols === 4 ? 78 : 92} team={team} />
+                  <PlayerAvatar player={p} size={cols === 4 ? 110 : 130} team={team} />
                   <div
                     style={{
-                      marginTop: 8,
-                      fontSize: cols === 4 ? 12 : 13,
+                      marginTop: 10,
+                      fontSize: cols === 4 ? 15 : 17,
                       fontWeight: 700,
                       color: '#fff',
                       textAlign: 'center',
@@ -513,11 +513,11 @@ function TeamPostCard({ team, sponsor, captain, roster }) {
                   </div>
                   <div
                     style={{
-                      marginTop: 4,
-                      fontSize: 9,
+                      marginTop: 6,
+                      fontSize: 11,
                       letterSpacing: 0.8,
                       fontWeight: 600,
-                      padding: '2px 8px',
+                      padding: '3px 10px',
                       borderRadius: 999,
                       background: ROLE_BG[p.role] || '#374151',
                       color: '#fff',
@@ -691,7 +691,7 @@ export default function TeamInstaPostsPage() {
         </Title>
         <Text type="secondary" style={{ fontSize: 14 }}>
           Cards render at full Instagram resolution (1080×1350). Click{' '}
-          <b>Download</b> to save the PNG.
+          <b>Download</b> to save the HD JPEG.
         </Text>
       </div>
 
