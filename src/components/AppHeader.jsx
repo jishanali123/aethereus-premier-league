@@ -8,6 +8,7 @@ import {
   ThunderboltOutlined,
   GiftOutlined,
   MenuOutlined,
+  InstagramOutlined,
 } from '@ant-design/icons';
 
 const { Header } = Layout;
@@ -16,6 +17,7 @@ const NAV_ITEMS = [
   { key: '/', label: 'Home', icon: <HomeOutlined /> },
   { key: '/players', label: 'Players', icon: <TeamOutlined /> },
   { key: '/teams', label: 'Teams', icon: <TrophyOutlined /> },
+  { key: '/insta/teams', label: 'Insta Cards', icon: <InstagramOutlined /> },
   { key: '/auction', label: 'Auction', icon: <ThunderboltOutlined />, disabled: true },
   { key: '/sponsors', label: 'Sponsors', icon: <GiftOutlined /> },
 ];

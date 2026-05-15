@@ -6,6 +6,7 @@ import LandingPage from './pages/LandingPage';
 import PlayersPage from './pages/PlayersPage';
 import PlayerDetailPage from './pages/PlayerDetailPage';
 import TeamsPage from './pages/TeamsPage';
+import TeamInstaPostsPage from './pages/TeamInstaPostsPage';
 import AuctionPage from './pages/AuctionPage';
 import SponsorsPage from './pages/SponsorsPage';
 
@@ -33,6 +34,7 @@ export default function App() {
                 <Route path="/players" element={<PlayersPage />} />
                 <Route path="/players/:id" element={<PlayerDetailPage />} />
                 <Route path="/teams" element={<TeamsPage />} />
+                <Route path="/insta/teams" element={<TeamInstaPostsPage />} />
                 <Route path="/auction" element={<AuctionPage />} />
                 <Route path="/sponsors" element={<SponsorsPage />} />
               </Routes>
