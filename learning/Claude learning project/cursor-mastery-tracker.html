@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cursor Mastery Tracker — Zero to Expert</title>
+<style>
+  :root{
+    --bg:#0f0e0b; --panel:#1a1813; --panel2:#221f18; --line:#332f26;
+    --text:#ece7dc; --muted:#a49c8a; --accent:#e8b84b; --accent2:#7fb3ff;
+    --green:#57c98a; --radius:14px;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    background:linear-gradient(180deg,#141210,#0f0e0b);color:var(--text);line-height:1.55;padding:32px 16px 80px}
+  .wrap{max-width:1000px;margin:0 auto}
+  header{margin-bottom:24px}
+  .eyebrow{color:var(--accent);font-weight:700;letter-spacing:.14em;text-transform:uppercase;font-size:12px}
+  h1{font-size:32px;margin:6px 0 8px;letter-spacing:-.02em}
+  .sub{color:var(--muted);font-size:15px;max-width:720px}
+  .barwrap{margin:22px 0 6px;background:var(--panel);border:1px solid var(--line);border-radius:999px;height:16px;overflow:hidden}
+  .bar{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--green));transition:width .4s ease;border-radius:999px}
+  .barmeta{display:flex;justify-content:space-between;font-size:13px;color:var(--muted);margin-bottom:8px}
+  .reset{background:none;border:1px solid var(--line);color:var(--muted);padding:5px 12px;border-radius:8px;cursor:pointer;font-size:12px}
+  .reset:hover{color:var(--text);border-color:var(--muted)}
+  .phase{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);margin:16px 0;overflow:hidden}
+  .phead{display:flex;align-items:center;gap:14px;padding:18px 20px;cursor:pointer;user-select:none}
+  .pnum{flex:0 0 auto;width:40px;height:40px;border-radius:10px;background:var(--panel2);border:1px solid var(--line);
+    display:flex;align-items:center;justify-content:center;font-weight:700;color:var(--accent)}
+  .ptitle{flex:1}
+  .ptitle h2{font-size:18px;letter-spacing:-.01em}
+  .ptitle .meta{color:var(--muted);font-size:13px;margin-top:2px}
+  .pcount{font-size:12px;color:var(--muted);background:var(--panel2);border:1px solid var(--line);padding:4px 10px;border-radius:999px;white-space:nowrap}
+  .chev{color:var(--muted);transition:transform .25s;font-size:14px}
+  .phase.collapsed .chev{transform:rotate(-90deg)}
+  .pbody{padding:0 20px 8px}
+  .phase.collapsed .pbody{display:none}
+  .item{display:flex;gap:12px;padding:13px 0;border-top:1px solid var(--line)}
+  .item input{margin-top:4px;width:18px;height:18px;accent-color:var(--green);cursor:pointer;flex:0 0 auto}
+  .item .c{flex:1}
+  .item .t{font-weight:600}
+  .item.done .t{text-decoration:line-through;color:var(--muted)}
+  .item .d{color:var(--muted);font-size:13.5px;margin-top:2px}
+  .links{margin-top:6px;display:flex;flex-wrap:wrap;gap:8px}
+  .links a{font-size:12.5px;color:var(--accent2);text-decoration:none;border:1px solid var(--line);
+    padding:3px 9px;border-radius:7px;background:var(--panel2)}
+  .links a:hover{border-color:var(--accent2)}
+  .links a.doc{color:var(--accent)}
+  .tag{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);border:1px solid var(--line);padding:2px 7px;border-radius:6px}
+  footer{color:var(--muted);font-size:12.5px;margin-top:30px;text-align:center;border-top:1px solid var(--line);padding-top:18px}
+  .kit{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);padding:18px 20px;margin:16px 0}
+  .kit h3{font-size:15px;color:var(--accent);margin-bottom:10px}
+  .kit .links{margin-top:0}
+  a{color:var(--accent2)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header>
+  <div class="eyebrow">Learning Plan · Senior Dev → Architect</div>
+  <h1>Cursor Mastery Tracker</h1>
+  <p class="sub">A deep, phased path to expert-level Cursor. Progress saves automatically in your browser. Work top-to-bottom — each phase assumes the last. Budget ~4–6 weeks part-time; the goal is fluency you keep, not features you forget.</p>
+  <div class="barmeta"><span id="pct">0% complete</span><button class="reset" onclick="resetAll()">Reset progress</button></div>
+  <div class="barwrap"><div class="bar" id="bar"></div></div>
+</header>
+<div id="phases"></div>
+
+<div class="kit">
+  <h3>Always-open reference kit (bookmark these)</h3>
+  <div class="links">
+    <a class="doc" href="https://cursor.com/docs" target="_blank">Official Docs</a>
+    <a class="doc" href="https://cursor.com/learn" target="_blank">Cursor Learn (official tutorials)</a>
+    <a href="https://cursor.com/changelog" target="_blank">Changelog</a>
+    <a href="https://cursor.com/blog" target="_blank">Engineering Blog</a>
+    <a href="https://forum.cursor.com/" target="_blank">Community Forum</a>
+    <a href="https://www.youtube.com/@cursor_ai" target="_blank">Official YouTube</a>
+    <a href="https://cursor.com/workshops" target="_blank">Workshops</a>
+    <a href="https://cursor.directory/" target="_blank">cursor.directory (rules/MCP)</a>
+  </div>
+</div>
+
+<footer>
+  Built July 2026 · Cursor was on v3.9 at the time (Composer 2.5, Cloud Agents, Automations, BugBot, iOS app).
+  Cursor ships weekly — treat the Changelog as required weekly reading. Progress is stored locally in this browser only.
+</footer>
+</div>
+
+<script>
+const DATA = [
+  {
+    n:"0", title:"Foundations & Mental Model", meta:"Why Cursor is different — the autonomy slider",
+    items:[
+      {id:"0a", t:"Install, sign in, import your VS Code settings/extensions/keybinds", d:"Cursor is a VS Code fork — everything ports over. Do the built-in walkthrough once.",
+        links:[["Download","https://cursor.com/download","doc"],["Get started guide","https://cursor.com/docs","doc"]]},
+      {id:"0b", t:"Internalize the 'autonomy slider' concept", d:"Tab (autocomplete) → Cmd/Ctrl+K (targeted inline edit) → Agent (multi-file, autonomous). Knowing WHEN to use which is the core skill Karpathy calls out.",
+        links:[["Cursor Learn","https://cursor.com/learn","doc"],["Builder.io: how I use Cursor","https://www.builder.io/blog/cursor-tips"]]},
+      {id:"0c", t:"Tour the interface: Agent panel, Tab, inline edit, chat, @ symbols", d:"Learn @-mentions (@files, @folders, @docs, @web) — this is how you steer context.",
+        links:[["Docs: overview","https://cursor.com/docs","doc"]]},
+      {id:"0d", t:"Watch one end-to-end 'beginner to pro' walkthrough", d:"Get the full loop in your head before drilling individual features.",
+        links:[["Cursor AI beginner→pro (AI.cc)","https://www.ai.cc/blogs/how-to-use-cursor-ai-2026-beginner-to-pro-guide/"],["DataCamp: 10 practical examples","https://www.datacamp.com/tutorial/cursor-ai-code-editor"]]}
+    ]
+  },
+  {
+    n:"1", title:"Tab & Inline Editing Fluency", meta:"Speed at the keystroke level",
+    items:[
+      {id:"1a", t:"Master Tab (multi-line, cross-file predictions) until it's reflexive", d:"Tab v2 predicts your next edit location, not just the next token. Learn to accept/reject fast.",
+        links:[["Tab feature","https://cursor.com/tab","doc"]]},
+      {id:"1b", t:"Drill Cmd/Ctrl+K for targeted edits and terminal command generation", d:"Use K inside the editor for scoped rewrites and in the terminal to generate shell commands.",
+        links:[["Docs","https://cursor.com/docs","doc"]]},
+      {id:"1c", t:"Learn the keyboard-shortcut set cold", d:"Accept/reject, open agent, add selection to chat, toggle models. Speed compounds.",
+        links:[["Cursor AI tips repo","https://github.com/murataslan1/cursor-ai-tips"]]},
+      {id:"1d", t:"Practice: refactor a real file using only Tab + inline edit (no Agent)", d:"Constraint-based practice builds instinct for when the small tools are actually faster.",links:[]}
+    ]
+  },
+  {
+    n:"2", title:"Context Engineering", meta:"The #1 skill that separates novices from experts",
+    items:[
+      {id:"2a", t:"Understand codebase indexing & semantic search", d:"Cursor indexes your repo so the agent retrieves relevant code. Know what it can/can't see and how to keep the index healthy.",
+        links:[["Semantic search docs","https://cursor.com/docs/context/semantic-search","doc"]]},
+      {id:"2b", t:"Master @-context: @files, @folders, @code, @docs, @web, @git", d:"Precise context = precise output. Over-stuffing context degrades results — learn to scope tightly.",
+        links:[["Docs","https://cursor.com/docs","doc"]]},
+      {id:"2c", t:"Add custom @docs sources for your frameworks/internal libs", d:"Point Cursor at official docs URLs so it stops hallucinating APIs.",
+        links:[["Docs","https://cursor.com/docs","doc"]]},
+      {id:"2d", t:"Learn Memories — persistent context across sessions", d:"Understand what gets remembered and how to curate it so the agent stays aligned to your project.",
+        links:[["Changelog","https://cursor.com/changelog","doc"]]},
+      {id:"2e", t:"Read a serious 'context is everything' write-up and apply it", d:"Prompt + context discipline is the highest-leverage habit for an architect using AI.",
+        links:[["Builder.io best tips","https://www.builder.io/blog/cursor-tips"]]}
+    ]
+  },
+  {
+    n:"3", title:"Rules — Version-Controlled AI Behavior", meta:"Where senior devs make Cursor a team asset",
+    items:[
+      {id:"3a", t:"Learn the modern .cursor/rules/ format (.mdc files with frontmatter)", d:"Legacy single .cursorrules is deprecated. New format = scoped, file-glob-attached, version-controlled rule files.",
+        links:[["Rules docs","https://cursor.com/docs","doc"],["Format best practices","https://www.prompthub.us/blog/top-cursor-rules-for-coding-agents"]]},
+      {id:"3b", t:"Write project rules: stack conventions, arch patterns, do/don't lists", d:"Scope one rules file per area (e.g. backend vs frontend). Reference anchor files with @path.",links:[]},
+      {id:"3c", t:"Study high-quality rule libraries and adapt (don't copy blindly)", d:"Learn the patterns, then tailor to your codebase. Curated collections are the fastest way to learn what 'good' looks like.",
+        links:[["awesome-cursorrules","https://github.com/PatrickJS/awesome-cursorrules"],["awesome-cursor-rules-mdc","https://github.com/sanjeed5/awesome-cursor-rules-mdc"],["cursor-rules-awesome (OWASP/SRE)","https://github.com/tonynguyennvt/cursor-rules-awesome"]]},
+      {id:"3d", t:"Set global/user rules for your personal style across all projects", d:"Encode your review standards once so every agent run respects them.",links:[]},
+      {id:"3e", t:"Read a full 'best practices' guide end to end", d:"Consolidate rules + workflow habits into a repeatable personal playbook.",
+        links:[["cursor-best-practices repo","https://github.com/digitalchild/cursor-best-practices"],["awesome-cursor (resource hub)","https://github.com/hao-ji-xing/awesome-cursor"]]}
+    ]
+  },
+  {
+    n:"4", title:"Agent Mode & Composer", meta:"Autonomous multi-file work — the core of modern Cursor",
+    items:[
+      {id:"4a", t:"Run Composer/Agent on a real multi-file feature end-to-end", d:"Plan → edit across files → run → self-correct. Watch how it explores the codebase before editing.",
+        links:[["Agents product","https://cursor.com/product","doc"]]},
+      {id:"4b", t:"Use Plan mode: have the agent propose a plan before it writes code", d:"For anything non-trivial, review the plan first. This is the architect's control point.",links:[]},
+      {id:"4c", t:"Pick the right model per task and understand the trade-offs", d:"Composer 2.5 for fast edits; frontier models (Opus, GPT-5.x, Gemini) for hard reasoning/review. Learn cost vs quality vs latency.",
+        links:[["Models docs","https://cursor.com/docs/models","doc"]]},
+      {id:"4d", t:"Practice the 'build with one model, review with another' workflow", d:"Generate with a fast/creative model, then run a principal-level review pass with a stronger reasoning model.",links:[]},
+      {id:"4e", t:"Learn agent guardrails: auto-run settings, allow/deny lists, and when to keep a human in the loop", d:"Full autonomy is powerful and risky — configure what the agent may run without asking.",
+        links:[["Docs","https://cursor.com/docs","doc"]]}
+    ]
+  },
+  {
+    n:"5", title:"MCP & Tool Integration", meta:"Connect Cursor to your real systems",
+    items:[
+      {id:"5a", t:"Understand Model Context Protocol and why it matters", d:"MCP lets the agent read/write against databases, issue trackers, observability, and internal tools — a one-time setup that transforms workflows.",
+        links:[["MCP guide 2026","https://www.nxcode.io/resources/news/cursor-mcp-servers-complete-guide-2026"]]},
+      {id:"5b", t:"Install & configure 2–3 MCP servers (e.g. Postgres, GitHub, Sentry/Linear)", d:"Wire the agent to the systems you actually use so it can act, not just suggest.",
+        links:[["Marketplace","https://cursor.com/marketplace","doc"],["cursor.directory MCP","https://cursor.directory/"]]},
+      {id:"5c", t:"Explore Cursor Hooks — scriptable guardrails around agent edits", d:"Run scripts before/after agent actions for lint, tests, or policy enforcement.",
+        links:[["Docs","https://cursor.com/docs","doc"]]},
+      {id:"5d", t:"Try the CLI and BugBot (AI PR review)", d:"Cursor runs in your terminal and reviews GitHub PRs. Fits it into CI and team workflow.",
+        links:[["CLI","https://cursor.com/cli","doc"],["BugBot / Review","https://cursor.com/bugbot","doc"]]}
+    ]
+  },
+  {
+    n:"6", title:"Expert & Architect-Level Practice", meta:"Scale, teams, autonomy, and staying current",
+    items:[
+      {id:"6a", t:"Use Background & Cloud Agents for parallel, off-machine work", d:"Cloud agents run in isolated VMs with terminal/browser access, work across repos in parallel, and report back async. Learn to delegate and review at scale.",
+        links:[["Cloud agents docs","https://cursor.com/docs/cloud-agent","doc"],["Automations","https://cursor.com/automate","doc"]]},
+      {id:"6b", t:"Set up Automations — scheduled/triggered always-on agents", d:"Recurring maintenance, dependency bumps, triage — automate the repetitive.",
+        links:[["Automations","https://cursor.com/automate","doc"]]},
+      {id:"6c", t:"Establish team standards: shared rules, MCP config, review gates", d:"As an architect, your leverage is the team's setup. Commit rules to the repo; standardize model use and guardrails.",
+        links:[["Enterprise","https://cursor.com/enterprise","doc"]]},
+      {id:"6d", t:"Develop a personal evaluation habit: when NOT to trust the agent", d:"Read Cursor's research on reward hacking / benchmark limits. Architect judgment = knowing where AI output needs hard verification.",
+        links:[["Reward hacking (Cursor blog)","https://cursor.com/blog/reward-hacking-coding-benchmarks"]]},
+      {id:"6e", t:"Ship a real, non-trivial project fully in the Cursor workflow", d:"Capstone: rules + context + agent + MCP + review. This is what converts knowledge into expertise.",links:[]},
+      {id:"6f", t:"Make Changelog + Forum weekly reading to stay on the frontier", d:"Cursor ships weekly. Expertise here is perishable — keep a standing 20-min/week review.",
+        links:[["Changelog","https://cursor.com/changelog","doc"],["Forum","https://forum.cursor.com/"]]}
+    ]
+  }
+];
+
+const KEY="cursorMasteryV1";
+let state=JSON.parse(localStorage.getItem(KEY)||"{}");
+const collapsed=JSON.parse(localStorage.getItem(KEY+"_col")||"{}");
+
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function render(){
+  const root=document.getElementById("phases");root.innerHTML="";
+  let total=0,done=0;
+  DATA.forEach(p=>{
+    let pdone=0;
+    p.items.forEach(it=>{total++;if(state[it.id]){done++;pdone++}});
+    const ph=document.createElement("div");ph.className="phase"+(collapsed[p.n]?" collapsed":"");
+    const head=document.createElement("div");head.className="phead";
+    head.innerHTML=`<div class="pnum">${p.n}</div>
+      <div class="ptitle"><h2>${p.title}</h2><div class="meta">${p.meta}</div></div>
+      <div class="pcount">${pdone}/${p.items.length}</div><div class="chev">▼</div>`;
+    head.onclick=()=>{collapsed[p.n]=!collapsed[p.n];localStorage.setItem(KEY+"_col",JSON.stringify(collapsed));render()};
+    ph.appendChild(head);
+    const body=document.createElement("div");body.className="pbody";
+    p.items.forEach(it=>{
+      const el=document.createElement("div");el.className="item"+(state[it.id]?" done":"");
+      const links=(it.links||[]).map(l=>`<a class="${l[2]||''}" href="${l[1]}" target="_blank">${l[0]} ↗</a>`).join("");
+      el.innerHTML=`<input type="checkbox" ${state[it.id]?"checked":""} data-id="${it.id}">
+        <div class="c"><div class="t">${it.t}</div><div class="d">${it.d}</div>
+        ${links?`<div class="links">${links}</div>`:""}</div>`;
+      el.querySelector("input").onchange=e=>{state[it.id]=e.target.checked;save();render()};
+      body.appendChild(el);
+    });
+    ph.appendChild(body);root.appendChild(ph);
+  });
+  const pct=total?Math.round(done/total*100):0;
+  document.getElementById("bar").style.width=pct+"%";
+  document.getElementById("pct").textContent=pct+"% complete — "+done+"/"+total+" steps";
+}
+function resetAll(){if(confirm("Clear all progress?")){state={};save();render()}}
+render();
+</script>
+</body>
+</html>
